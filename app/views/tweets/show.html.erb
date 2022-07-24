@@ -1,0 +1,26 @@
+
+
+<div>
+  <%= link_to "Add New tweet", new_tweet_path,id:"add_new_tweet" %>
+</div>
+
+<div>
+  <div>
+    <p><%= @tweet.body %></p>
+    
+    <% if @tweet.user.id == current_user.id %>
+      <div>
+      <div>
+        <%= link_to "Destroy", tweet_path(@tweet), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } do %>
+        <i class="fa-solid fa-trash-can"></i>
+        <%end%>
+        </div>
+        </div>
+    <% end %>
+  </div>
+</div>
+
+

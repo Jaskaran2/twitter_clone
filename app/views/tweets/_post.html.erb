@@ -1,0 +1,111 @@
+<style>
+/* Post component......................................................................... */
+.post{
+    display:flex;
+    align-items:flex-start;
+    border-bottom:1px solid var(--twitter-background);
+    padding-bottom:10px;
+    padding-top:10px;
+    margin:10px;
+}
+
+i{
+    cursor:pointer;
+}
+
+.deleteOption:hover,i:hover{ 
+    background-color:#e8f5fe;
+    border-radius:30px;
+    color:var(--twitter-color);
+    transition: color 100ms ease-out;
+}
+
+
+.post_footer{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+}
+
+.post_headerSpecial{
+    font-weight:600;
+    font-size:12px;
+    color:gray;
+}
+
+.post_headerTimestamp{
+    font-weight:600;
+    font-size:12px;
+    color:gray;
+}
+
+.post_headerText>h3{
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.post_headerDescription{
+    margin-bottom:10px;
+    font-size:15px;
+}
+
+.post_body{
+    flex:1;
+    padding:10px;
+    max-width:60%;
+}
+
+.post_avatar{
+    padding:20px;
+}
+
+.deleteOption{
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+}
+
+
+
+
+</style>
+
+
+<% tweets.each do |tweet| %>
+    <div class="post">
+        <div class="post_avatar">
+            <i class="fa-solid fa-user"></i>
+        </div>
+
+        <div class="post_body">
+
+            <div class="post_header">   
+                <div class="post_headerText">
+                    <h3><%=tweet.user.name%> <span class="post_headerSpecial"> @<%=tweet.user.username%></span></h3>
+                    <p class="post_headerTimestamp"><%= tweet.created_at%> </p>
+                    
+                </div>
+
+                <div class=post_headerDescription>
+                    <p> <%=tweet.body%></p>
+                </div>
+            </div>
+
+            <div class="post_footer">
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-comment"></i>
+                <i class="fa-solid fa-retweet"></i>
+                <div class="deleteOption">
+                <% if tweet.user.id == current_user.id %>
+                 
+                <%= link_to " Delete", tweet_path(tweet), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"   
+                  },class:"fa-solid fa-trash" %>
+                 <% end %>
+                 </div>
+            </div>
+
+        </div>
+    </div>
+<%end%>

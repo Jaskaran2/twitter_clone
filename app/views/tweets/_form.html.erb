@@ -1,0 +1,60 @@
+<style>
+.tweet_button{
+    border-radius: 30px;
+    color:white;
+    padding: 10px 20px;
+    background: var(--twitter-color);
+    font-size: 15px;
+    font-weight:900;
+    cursor: pointer;
+    border:none;
+    width:100px;
+    height:40px;
+    margin-top:20px;
+    margin-left:20px;
+}
+
+.tweetBox{
+    padding-bottom:10px;
+    border-bottom:8px solid var(--twitter-background);
+    padding-right:10px;
+    align-items:center;
+}
+
+.tweetBox>form{
+    display:flex;
+    flex-direction:column;
+}
+
+.tweeBox_input{
+    padding:20px;
+    display:flex;
+}
+
+.tweetBox_input>textarea{
+    flex:1;
+    margin-left:20px;
+    font-size:20px;
+    border:none;
+    width:70%;
+    height:125px;
+}
+
+
+
+</style>
+
+<%= form_with model: tweet do |form| %>
+
+<div class="tweetBox">
+        <i class="fa-solid fa-user"></i>
+        <div class="tweetBox_input">
+        <%= form.text_area :body, placeholder: "Whats happenng?" %><br>
+        <% tweet.errors.full_messages_for(:body).each do |message| %>
+            <div><%= message %></div>
+        <% end %>
+        <%= form.submit "Tweet", id:"create_tweet",class:"tweet_button"%>
+    </div>
+</div>
+
+<% end %>

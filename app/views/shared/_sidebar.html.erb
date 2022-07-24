@@ -1,0 +1,92 @@
+<style>
+
+.sidebar{
+    border-right:1px solid var(--twitter-background);
+    flex:0.3;
+    margin-top:20px;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.sidebar_twitterIcon{
+    color:var(--twitter-color);
+    font-size:30px;
+    margin-left:20px;
+    margin-right:20px;
+}
+.sidebarOption{
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+}
+
+.sidebarOption:hover{
+    background-color:#e8f5fe;
+    border-radius:30px;
+    color:var(--twitter-color);
+    transition: color 100ms ease-out;
+}
+
+i{
+    padding:20px;
+}
+
+.sidebarOption>h2{
+    font-weight:800;
+    font-size:20px;
+    margin-right:20px;
+}
+
+.active{
+    color:var(--twitter-color)
+}
+a{
+    text-decoration:none;
+    color: inherit;
+}
+
+.logout_button{
+    border:none;
+    color: inherit;
+    font-weight:680;
+    font-size:20px;
+    margin-left:-10px;
+
+}
+
+ .tweet-button {
+    display: inline-block;
+    width: 55px;
+    height: 21px;
+    background-image: url(http://platform.twitter.com/widgets/images/tweet.dfbf1dd98bad9f5b5addd80494650dca.png);
+    background-position: 0 0;
+  }
+  .tweet-button:hover {
+    background-position: 0 -21px;
+  }
+</style>
+
+<div class="sidebar">
+    <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>
+
+    <div class="sidebarOption active">
+        <i class="fa-solid fa-house-user"></i>
+        <h2> Home</h2>
+    </div>
+
+    <div class="sidebarOption">
+        <i class="fa-solid fa-user"></i>
+        <h2>Profile</h2>
+    </div>
+
+    <div class="sidebarOption">
+        <i class="fa-solid fa-bell"></i>
+        <h2>Notification</h2>
+    </div>
+
+    <div class="sidebarOption">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <h2> <%= button_to "Logout", destroy_user_session_path,method: :delete,class:"logout_button" %></h2>
+    </div>
+
+</div>
