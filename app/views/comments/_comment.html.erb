@@ -1,0 +1,18 @@
+<div class="post">
+  <div class="post_body">
+    <div class="post_header">   
+      <div class=post_headerDescription>
+        <p> <%=comment.body%></p>
+      </div>
+    </div>
+    <div class="post_footer">
+      <i class="fa-solid fa-heart"></i>
+      <i class="fa-solid fa-retweet"></i>
+      <div class="deleteOption">         
+        <%= link_to "", [comment.tweet, comment], data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            },class:"fa-solid fa-trash" %>
+      </div>
+  </div>
+</div>

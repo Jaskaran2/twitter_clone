@@ -20,8 +20,6 @@
     --twitter-background:#e6ecf0;
 
  }
-
-
  .app{
     display: flex;
     height:100vh;
@@ -30,3 +28,335 @@
     margin-right: auto;
     padding:0 10px;
  }
+
+ a{
+   text-decoration:none;
+   color: black;
+}
+
+
+ /*tweets/_post.html.erb Post component......................................................................... */
+.post{
+   display:flex;
+   align-items:flex-start;
+   border-bottom:1px solid var(--twitter-background);
+   padding-bottom:10px;
+   padding-top:10px;
+   margin:10px;
+}
+
+i{
+   cursor:pointer;
+}
+
+.deleteOption:hover,i:hover,.commentOption:hover{ 
+   background-color:#e8f5fe;
+   border-radius:30px;
+   color:var(--twitter-color);
+   transition: color 100ms ease-out;
+}
+
+
+.post_footer{
+   display:flex;
+   justify-content:space-between;
+   margin-top:10px;
+}
+
+.post_headerSpecial{
+   font-weight:600;
+   font-size:12px;
+   color:gray;
+}
+
+.post_headerTimestamp{
+   font-weight:600;
+   font-size:12px;
+   color:gray;
+}
+
+.post_headerText>h3{
+   font-size:15px;
+   margin-bottom:5px;
+}
+
+.post_headerDescription{
+   margin-bottom:10px;
+   font-size:15px;
+}
+
+.post_body{
+   flex:1;
+   padding:10px;
+   max-width:60%;
+   min-width: 200px;
+}
+
+.post_avatar{
+   padding:20px;
+}
+
+.deleteOption{
+   cursor:pointer;
+   display:flex;
+   align-items:center;
+}
+.commentOption{
+   cursor:pointer;
+   display:flex;
+   align-items:center;
+}
+/* ............................................................................. */
+
+/* _sidebar.html.erb */
+.sidebar{
+    border-right:1px solid var(--twitter-background);
+    flex:0.3;
+    margin-top:20px;
+    padding-left:20px;
+    padding-right:20px;
+}
+
+.sidebar_twitterIcon{
+    color:var(--twitter-color);
+    font-size:30px;
+    margin-left:20px;
+    margin-right:20px;
+}
+.sidebarOption{
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+}
+
+.sidebarOption:hover{
+    background-color:#e8f5fe;
+    border-radius:30px;
+    color:var(--twitter-color);
+    transition: color 100ms ease-out;
+}
+
+i{
+    padding:20px;
+}
+
+.sidebarOption>h2{
+    font-weight:800;
+    font-size:20px;
+    margin-right:20px;
+}
+
+.sidebarOption_home,.sidebarOption_profile{
+    font-weight:800;
+    font-size:20px;
+    margin-right:20px;
+}
+
+.active{
+    color:var(--twitter-color)
+}
+
+.logout_button{
+    border:none;
+    color: inherit;
+    font-weight:680;
+    font-size:20px;
+    margin-left:-10px;
+
+}
+
+ .tweet-button {
+    display: inline-block;
+    width: 55px;
+    height: 21px;
+    background-image: url(http://platform.twitter.com/widgets/images/tweet.dfbf1dd98bad9f5b5addd80494650dca.png);
+    background-position: 0 0;
+  }
+  .tweet-button:hover {
+    background-position: 0 -21px;
+  }
+
+  /* ........................................................................................... */
+
+  /* show.html.erb */
+  .commnets_body{
+   flex:0.3;
+   margin-left:auto;
+   
+   align-items:center;
+ }
+
+ .single_post{
+   flex:0.7;
+ }
+
+ /* ............................................................................................. */
+
+ /* registration and session new.html.erb */
+
+ body,html{
+   height:110%;
+ }
+ .landing_container{
+   height:100%;
+   display:flex;
+ }
+ 
+ .left{
+   flex:0.57;
+ }
+ 
+ .right{
+   background-color:black;
+   flex:0.43; 
+ }
+ img{
+   height:100%;
+   width:100%;
+   object-fit:cover;
+ }
+ 
+ .twitterIcon{
+   color:white;
+    font-size:50px;
+    padding-left:30px;
+    margin-top:80px;
+ }
+ 
+ .right_heading{
+   margin-top:50px;
+   color:white;
+   padding-left:50px;
+   font-size:65px;
+ }
+ 
+ .right_subHeading{
+   color:white;
+   padding-left:50px;
+   margin-top:20px;
+ }
+ 
+ .signcard{
+     width: 450px;
+     border:none;
+   }
+ 
+ 
+ 
+ .btn-dark:hover {
+     color: #fff;
+     background-color: #0d6efd;
+     border-color: #0d6efd;
+ }
+ 
+ .nav-pills{
+ 
+   display:table !important;
+   width:100%;
+ }
+ 
+ .nav-pills .nav-link {
+     border-radius: 0px;
+      
+ 
+ }
+ 
+ .nav-item{
+       display: table-cell;
+ }
+ 
+ .signup_button,.signin_button{
+   width:100%;
+ }
+
+  /* .............................................................. */
+
+  /* tweet/_form.html.erb */
+  .tweet_button{
+   border-radius: 30px;
+   color:white;
+   padding: 10px 20px;
+   background: var(--twitter-color);
+   font-size: 15px;
+   font-weight:900;
+   cursor: pointer;
+   border:none;
+   width:100px;
+   height:40px;
+   margin-top:20px;
+   margin-left:20px;
+}
+
+.tweetBox{
+   padding-bottom:10px;
+   border-bottom:8px solid var(--twitter-background);
+   padding-right:10px;
+   align-items:center;
+}
+
+.tweetBox>form{
+   display:flex;
+   flex-direction:column;
+}
+
+.tweeBox_input{
+   padding:20px;
+   display:flex;
+}
+
+.tweetBox_input>textarea{
+   flex:1;
+   margin-left:20px;
+   font-size:20px;
+   border:none;
+   width:70%;
+   height:125px;
+}
+
+/* ................................................................. */
+
+/* comments/_form.html.erb */
+.comment_button{
+   border-radius: 30px;
+   color:white;
+   padding: 10px 20px;
+   background: var(--twitter-color);
+   font-size: 15px;
+   font-weight:900;
+   cursor: pointer;
+   border:none;
+   width:120px;
+   height:40px;
+   margin-top:20px;
+   margin-left:20px;
+}
+
+.commentBox{
+   margin-top:10px;
+   padding-bottom:10px;
+   border-bottom:8px solid var(--twitter-background);
+   padding-right:10px;
+   align-items:center;
+}
+
+.commentBox>form{
+   display:flex;
+   flex-direction:column;
+}
+
+.commentBox_input{
+   padding:20px;
+   display:flex;
+}
+
+.commentBox_input>textarea{
+   flex:1;
+   margin-left:20px;
+   font-size:20px;
+   border:none;
+   width:70%;
+   height:75px;
+}
+
+
+/* ................................................................................ */

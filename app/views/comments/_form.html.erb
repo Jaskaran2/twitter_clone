@@ -1,0 +1,10 @@
+<%= form_with model: [ @tweet, @tweet.comments.build ] do |form| %>
+
+    <div class="commentBox">
+            <div class="commentBox_input">
+            <%= form.text_area :body %><br>
+            <%= form.submit "Comment",class:"comment_button"%>
+        </div>
+    </div>
+
+<% end %>

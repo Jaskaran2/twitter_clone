@@ -1,26 +1,57 @@
+<div class="landing_container">
+  <div class="left">
+      <img src="https://images.firstpost.com/fpimages/1200x800/fixed/jpg/2021/05/twitter-logo-1280-min.jpg">
+  </div>
+
+  <div class="right">
+   <span class="fa-brands fa-twitter twitterIcon"></span>
+   <h1 class="right_heading">Happening Now!</h1>
+   <h2 class="right_subHeading">Join Twitter Toady</h2>
+   
+<div class="d-flex justify-content-center align-items-center mt-5">
+    <div class="card signcard">
+        <ul class="nav nav-pills mb-3" id="loginCard">
+            <li class="nav-item text-center">
+                <%= link_to "Sign In", new_user_session_path, class:"nav-link active signin"%>
+            </li>
+            <li class="nav-item text-center">
+                <%= link_to "Sign up",new_user_registration_path,class:"nav-link signup"%>
+            </li>    
+        </ul>
+
+        <div class="form px-4 pt-5">
+            <h1>Sign in</h1>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field mb-3">
+              <%= f.label :email %><br />
+              <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control" %>
+            </div>
+
+            <div class="field mb-3">
+              <%= f.label :password %><br />
+              <%= f.password_field :password, autocomplete: "current-password",class:"form-control"%>
+            </div>
+
+            <% if devise_mapping.rememberable? %>
+              <div class="field mb-3">
+                <%= f.check_box :remember_me %>
+                <%= f.label :remember_me %>
+              </div>
+            <% end %>
+
+            <div class="actions">
+              <%= f.submit "Log in",class:"btn btn-dark signin_button" %>
+            </div>
+          <% end %>
+
+          <%= render "devise/shared/links" %>
+
+  
+        </div>
+    </div> 
+</div>
+</div>
+</div>
+
 <h2>Log in</h2>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
