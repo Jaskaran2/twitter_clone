@@ -2,7 +2,11 @@
     <%=render "shared/sidebar"%>
     <div class="post single_post">
       <div class="post_avatar">
-        <i class="fa-solid fa-user"></i>
+        <% if !@tweet.user.profile_image.byte_size.nil? %>
+          <%= image_tag @tweet.user.profile_image,class:"post_image mt-3"%>
+        <%else%>
+          <%=gravatar_image_tag(@tweet.user.email, size:64,alt:current_user.name,class:"post_image mt-3")%>
+        <%end%>
       </div>
       <div class="post_body">
         

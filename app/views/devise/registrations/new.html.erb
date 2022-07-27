@@ -32,7 +32,12 @@
                     <%end%>
                     </div>
                  <%end%> 
-    
+
+                  <div class="field mb-3 custom-file">
+                    <%= f.label :profile_image,class:"custom-file-label" %><br />
+                    <%= f.file_field :profile_image, autofocus: true, class:"custom-file-input" %>
+                  </div>
+
                 <div class="field mb-3">
                   <%= f.label :name %><br />
                   <%= f.text_field :name, autofocus: true, class:"form-control" %>

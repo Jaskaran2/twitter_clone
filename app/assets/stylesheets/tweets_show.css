@@ -1,0 +1,12 @@
+  /* show.html.erb */
+  .commnets_body{
+    flex:0.3;
+    margin-left:auto;
+    
+    align-items:center;
+  }
+ 
+  .single_post{
+    flex:0.7;
+  }
+ 

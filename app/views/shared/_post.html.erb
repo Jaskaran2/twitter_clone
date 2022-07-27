@@ -1,7 +1,11 @@
 <% tweets.each do |tweet| %>
     <div class="post">
         <div class="post_avatar">
-            <i class="fa-solid fa-user"></i>
+            <%if !tweet.user.profile_image.byte_size.nil?%>
+               <%= image_tag tweet.user.profile_image,class:"post_image"%>
+            <%else%>
+                <%=gravatar_image_tag(tweet.user.email, size:64,alt:current_user.name,class:"post_image")%>
+            <%end%>
         </div>
 
         <div class="post_body">

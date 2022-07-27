@@ -1,0 +1,77 @@
+/* registration and session new.html.erb */
+
+body,html{
+    height:115%;
+  }
+  .landing_container{
+    height:100%;
+    display:flex;
+  }
+  
+  .left{
+    flex:0.57;
+    background-color:var(--twitter-color);
+  }
+  
+  .right{
+    background-color:black;
+    flex:0.43; 
+  }
+  img{
+    height:100%;
+    width:100%;
+    object-fit:cover;
+  }
+  
+  .twitterIcon{
+    color:white;
+     font-size:50px;
+     padding-left:30px;
+     margin-top:80px;
+  }
+  
+  .right_heading{
+    margin-top:50px;
+    color:white;
+    padding-left:50px;
+    font-size:65px;
+  }
+  
+  .right_subHeading{
+    color:white;
+    padding-left:50px;
+    margin-top:20px;
+  }
+  
+  .signcard{
+      width: 450px;
+      border:none;
+    }
+  
+  
+  
+  .btn-dark:hover {
+      color: #fff;
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+  }
+  
+  .nav-pills{
+  
+    display:table !important;
+    width:100%;
+  }
+  
+  .nav-pills .nav-link {
+      border-radius: 0px;
+       
+  
+  }
+  
+  .nav-item{
+        display: table-cell;
+  }
+  
+  .signup_button,.signin_button{
+    width:100%;
+  }

@@ -8,8 +8,12 @@ gem "rails", "~> 7.0.3"
 gem 'tzinfo-data'
 
 gem "font-awesome-rails"
+gem 'gravatar_image_tag'
 
 gem 'image_processing', '~> 1.2'
+
+
+gem 'turbolinks', '~> 5.2.0'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -50,6 +54,7 @@ gem "bootsnap", require: false
 gem 'devise' 
 gem 'gravatar_image_tag'
 
+gem 'hotwire-rails'
 # Use Sass to process CSS
 # gem "sassc-rails"
 

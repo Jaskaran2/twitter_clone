@@ -1,47 +1,21 @@
-<style>
-.profile{
-    display: flex;
-    height:100vh;
-    max-width:1300px;
-    margin-left: auto;
-    margin-right: auto;
-    padding:0 10px;
-}
 
-.profile_body{
-    flex-direction:column;
-}
-
-.profile_header{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.profile_avatar{
-   padding:20px;
-   font-size:50px;
-}
-
-.profile_headerText{
-    font-weight:600;
-   font-size:12px;
-   color:gray;
-}
-
-</style>
 <div class="profile">
     <%=render "shared/sidebar"%>
     <div class="profile_body">
         <div class="profile_header">
             
             <div class="profile_avatar">
-                <i class="fa-solid fa-user"></i>
+            <%if !@profile.profile_image.byte_size.nil?%>
+               <%= image_tag @profile.profile_image,class:"profile_image"%>
+            <%else%>
+                <%=gravatar_image_tag(@profile.email, size:64,alt:current_user.name,class:"profile_image")%>
+            <%end%>
             </div>
 
             <div class="post_headerText">
-               <h3><%=@profile.name  %><button class="btn btn-primary ms-3">Follow</button>   </h3>
-               <p class="mt-3">Followers- 100   Following- 77</p>          
+               <h3><%=@profile.name  %><button class="btn btn-primary ms-3">Follow</button>  <%=link_to "" , edit_user_registration_path,class:"fa-solid fa-gear ms-4"%></h3>
+              <p class="mt-3">Followers- 100   Following- 77</p>
+               
             </div>
         </div>
         <div class="profile_body">

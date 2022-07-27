@@ -1,0 +1,29 @@
+.edit_profile{
+    display:flex;
+    height:100%;
+  }
+
+  .left_edit{
+    flex:0.4;
+    background-color:var(--twitter-color);
+    height:100%;
+  }
+
+  .right_edit{
+    flex:0.6;
+    padding:10px;
+    height:100%;
+    background-color:var(--twitter-background);
+  }
+
+  .profile_eidt_heading{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 900px;  
+    color:white;
+    font-weight:800;
+  }
+
+  .delete_profile,.update_profile{
+    width:100%;
+  }

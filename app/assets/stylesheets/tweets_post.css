@@ -1,0 +1,77 @@
+/*tweets/_post.html.erb Post component......................................................................... */
+.post{
+    display:flex;
+    align-items:flex-start;
+    border-bottom:1px solid var(--twitter-background);
+    padding-bottom:10px;
+    padding-top:10px;
+    margin:10px;
+ }
+ 
+ i{
+    cursor:pointer;
+ }
+ 
+ .deleteOption:hover,i:hover,.commentOption:hover{ 
+    background-color:#e8f5fe;
+    border-radius:30px;
+    color:var(--twitter-color);
+    transition: color 100ms ease-out;
+ }
+ 
+ 
+ .post_footer{
+    display:flex;
+    justify-content:space-between;
+    margin-top:10px;
+ }
+ 
+ .post_headerSpecial{
+    font-weight:600;
+    font-size:12px;
+    color:gray;
+ }
+ 
+ .post_headerTimestamp{
+    font-weight:600;
+    font-size:12px;
+    color:gray;
+ }
+ 
+ .post_headerText>h3{
+    font-size:15px;
+    margin-bottom:5px;
+ }
+ 
+ .post_headerDescription{
+    margin-bottom:10px;
+    font-size:15px;
+ }
+ 
+ .post_body{
+    flex:1;
+    padding:10px;
+    max-width:60%;
+    min-width: 200px;
+ }
+ 
+ .post_avatar{
+    padding:20px;
+ }
+ 
+ .deleteOption{
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+ }
+ .commentOption{
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+ }
+
+ .post_image{
+   height: 3rem;
+   width: 3rem;
+ }
+ /* ............................................................................. */
