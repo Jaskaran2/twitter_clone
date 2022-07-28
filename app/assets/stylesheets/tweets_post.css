@@ -59,12 +59,7 @@
     padding:20px;
  }
  
- .deleteOption{
-    cursor:pointer;
-    display:flex;
-    align-items:center;
- }
- .commentOption{
+ .deleteOption,.likeOption,.retweetOption,.commentOption{
     cursor:pointer;
     display:flex;
     align-items:center;
@@ -73,5 +68,14 @@
  .post_image{
    height: 3rem;
    width: 3rem;
+ }
+
+ .like{
+   color:#ff3855
+ }
+
+ button.fa-heart{
+   border: none;
+   margin-right: 4px;
  }
  /* ............................................................................. */

@@ -1,4 +1,4 @@
-
+<%like_status||= local_assigns[:like_status] %>
 <div class="app">
     <%=render "shared/sidebar"%>
 
@@ -9,13 +9,15 @@
 
         
         <%= render "form", tweet: @tweet %>
-
-    <%=turbo_frame_tag "tweets" do%>
-        <%=render @tweets%>
-    <%end%>
+        <%=turbo_stream_from "tweets"%>
+        <%=turbo_frame_tag "tweets" do%>
+            <%@tweets.all.each do |tweet|%>
+                <%=render "tweets/#{tweet.tweet_type.parameterize}", tweet:tweet, like_status: current_user.liked?(tweet), current_user:current_user%>
+            <%end%>
+        <%end%>
       
         
 
         </div>        
-    <div>
+    </div>
 </div>

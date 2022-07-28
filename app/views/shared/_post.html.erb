@@ -28,17 +28,14 @@
                     <span><%=link_to "",tweet ,class:"fa-solid fa-comment"%>  <%=tweet.comments.count%></span>
                 </div>
                 <i class="fa-solid fa-retweet"></i>
-
+            <% if tweet.user.id == current_user.id %>
                 <div class="deleteOption">
-
-                    <% if tweet.user.id == current_user.id %>
-                            
-                        <%= link_to "", tweet_path(tweet), data: {
-                            turbo_method: :delete,
-                            turbo_confirm: "Are you sure?"   
-                            },class:"fa-solid fa-trash" %>
-                    <% end %>
+                    <%= link_to "", tweet_path(tweet), data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Are you sure?"   
+                        },class:"fa-solid fa-trash" %>
                 </div>
+             <% end %>
             </div>
 
         </div>

@@ -1,11 +1,11 @@
 <%like_status||= local_assigns[:like_status] %>
-<%= turbo_frame_tag dom_id(tweet) do%>
+<%= turbo_frame_tag "tweet_#{tweet.tweet.id}" do%>
     <div class="post">
         <div class="post_avatar">
-            <%if !tweet.user.profile_image.byte_size.nil?%>
-               <%= image_tag tweet.user.profile_image,class:"post_image"%>
+            <%if !tweet.tweet.user.profile_image.byte_size.nil?%>
+               <%= image_tag tweet.tweet.user.profile_image,class:"post_image"%>
             <%else%>
-                <%=gravatar_image_tag(tweet.user.email, size:64,alt:current_user.name,class:"post_image")%>
+                <%=gravatar_image_tag(tweet.tweet.user.email, size:64,alt:current_user.name,class:"post_image")%>
             <%end%>
         </div>
 
@@ -13,13 +13,15 @@
 
             <div class="post_header">   
                 <div class="post_headerText">
-                    <h3><%=tweet.user.name%> <span class="post_headerSpecial"> @<%=tweet.user.username%></span></h3>
+                    <h3>Retweeted by <span class="post_headerSpecial"> @<%=tweet.user.username%></span></h3>
+                      Tweeted by <span class="post_headerSpecial"> @<%=tweet.tweet.user.username%></span>
                     <p class= "post_headerTimestamp"><%= tweet.created_at%> </p>
                     
                 </div>
 
                 <div class=post_headerDescription>
-                    <p> <%=tweet.body%></p>
+              
+                    <p> <%=tweet.tweet.body%></p>
                 </div>
             </div>
 
@@ -28,14 +30,14 @@
                     <%=render "likes/like_button",tweet:tweet,like_status:like_status%>
                 </div>
                 <div class="commentOption">
-                    <span><%=link_to "",tweet ,class:"fa-solid fa-comment",data:{"turbo-frame": "_top"}%>  <%=tweet.comments.count%></span>
+                    <span><%=link_to "",tweet ,class:"fa-solid fa-comment",data:{"turbo-frame": "_top"}%>  <%=tweet.tweet.comments.count%></span>
                 </div>
 
                 <div class="retweetOption">
-                    <span><%=button_to "",retweet_tweet_path(tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"}%> </span>
+                    <span><%=link_to "",retweet_tweet_path(tweet.tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"}%></span>
                 </div>
 
-                <% if tweet.user.id == current_user.id %>
+                <% if tweet.tweet.user.id == current_user.id %>
                 <div class="deleteOption">
                     <%= link_to "", tweet_path(tweet), data: {
                         turbo_method: :delete,

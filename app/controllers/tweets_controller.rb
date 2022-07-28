@@ -4,6 +4,7 @@ class TweetsController<ApplicationController
 
     def index
         @tweets = Tweet.all.order("created_at DESC")
+        @user_gid=current_user.to_gid_param if current_user
         if current_user.nil?
             redirect_to new_user_session_path,notice: "You first need to sign in!!"
         else
@@ -34,7 +35,7 @@ class TweetsController<ApplicationController
             #   redirect_to root_path,notice: "Post created"
             else
             flash[:error]="Wrong inputs!! Something is missing"
-            render :new 
+            render :index
             end
         end
     end
@@ -46,11 +47,45 @@ class TweetsController<ApplicationController
         redirect_to profile_path, status: 303    
     end
 
+    def like
+        @tweet= Tweet.find(params[:id])
+        current_user.like(@tweet)
+        redirect_to do |format|
+            format.turbo_stream do
+                render turbo_stream: private_stream
+            end
+        end
+    end
+
+    def retweet
+        @tweet= Tweet.find(params[:id])
+
+        @retweet=current_user.tweets.new(tweet_id:params[:id],user_id:current_user.id)
+        respond_to do |format|
+            if @retweet.save
+                format.turbo_stream
+            else
+                format.html{redirect_back fallback_location:@tweet,alert:"Something went wrong while retweeting"}
+            end
+        end
+
+    end
+
     
     private
 
     def tweet_params
-      params.require(:tweet).permit(:body)
+      params.require(:tweet).permit(:body,:tweet_id)
+    end
+
+    def private_stream
+        private_target="tweet_#{@tweet.id}_private_likes"
+        turbo_stream.replace(private_target,
+                            partial:"likes/like_button",
+                            locals:{tweet:@tweet,
+                            like_status:current_user.liked?(@tweet)
+                        } 
+                        )
     end
 
 end

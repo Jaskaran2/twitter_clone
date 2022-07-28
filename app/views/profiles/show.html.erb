@@ -18,8 +18,11 @@
                
             </div>
         </div>
+
         <div class="profile_body">
-            <%=render "shared/post", tweets:@profile.tweets.all.order("created_at DESC")%>
+            <%@profile.tweets.all.each do |tweet|%>
+                <%=render "tweets/tweet", tweet:tweet%>
+            <%end%>
         </div>
     <div>
 </div>
