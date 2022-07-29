@@ -13,8 +13,14 @@
             </div>
 
             <div class="post_headerText">
-               <h3><%=@profile.name  %><button class="btn btn-primary ms-3">Follow</button>  <%=link_to "" , edit_user_registration_path,class:"fa-solid fa-gear ms-4"%></h3>
-              <p class="mt-3">Followers- 100   Following- 77</p>
+            <h3>
+                <%=@profile.name  %>
+                <% if !(@profile.id==Current.user.id)%>
+                    9<button class="btn btn-primary ms-3">Follow</button>
+                <%end%>  
+                <%=link_to "" , edit_user_registration_path,class:"fa-solid fa-gear ms-4"%>
+            </h3>
+            <p class="mt-3">Followers- 100   Following- 77</p>
                
             </div>
         </div>

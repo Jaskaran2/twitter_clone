@@ -1,11 +1,12 @@
 <%like_status||= local_assigns[:like_status] %>
+
 <%= turbo_frame_tag dom_id(tweet) do%>
     <div class="post">
         <div class="post_avatar">
             <%if !tweet.user.profile_image.byte_size.nil?%>
                <%= image_tag tweet.user.profile_image,class:"post_image"%>
             <%else%>
-                <%=gravatar_image_tag(tweet.user.email, size:64,alt:current_user.name,class:"post_image")%>
+                <%=gravatar_image_tag(tweet.user.email, size:64,alt:Current.user.name,class:"post_image")%>
             <%end%>
         </div>
 
@@ -13,7 +14,7 @@
 
             <div class="post_header">   
                 <div class="post_headerText">
-                    <h3><%=tweet.user.name%> <span class="post_headerSpecial"> @<%=tweet.user.username%></span></h3>
+                    <h3><%=link_to tweet.user.name, profile_path(tweet.user.id),data:{"turbo-frame": "_top"}%><span class="post_headerSpecial"> @<%=tweet.user.username%></span></h3>
                     <p class= "post_headerTimestamp"><%= tweet.created_at%> </p>
                     
                 </div>
@@ -35,14 +36,9 @@
                     <span><%=button_to "",retweet_tweet_path(tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"}%> </span>
                 </div>
 
-                <% if tweet.user.id == current_user.id %>
                 <div class="deleteOption">
-                    <%= link_to "", tweet_path(tweet), data: {
-                        turbo_method: :delete,
-                        turbo_confirm: "Are you sure?"   
-                        },class:"fa-solid fa-trash" %>
+                <%= render "tweets/delete_tweet", tweet:tweet%>
                 </div>
-             <% end %>
 
             </div>
 
