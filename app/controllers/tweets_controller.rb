@@ -60,7 +60,7 @@ class TweetsController<ApplicationController
     def retweet
         @tweet= Tweet.find(params[:id])
 
-        @retweet=current_user.tweets.new(tweet_id:params[:id],user_id:current_user.id)
+        @retweet=current_user.tweets.new(tweet_id:@tweet.id,user_id:current_user.id)
         respond_to do |format|
             if @retweet.save
                 format.turbo_stream
@@ -79,7 +79,8 @@ class TweetsController<ApplicationController
     end
 
     def private_stream
-        private_target="tweet_#{@tweet.id}_private_likes"
+
+        private_target="#{helpers.dom_id(@tweet)}_private_likes"
         turbo_stream.replace(private_target,
                             partial:"likes/like_button",
                             locals:{tweet:@tweet,

@@ -1,5 +1,5 @@
 <%like_status||= local_assigns[:like_status] %>
-<%= turbo_frame_tag "tweet_#{tweet.tweet.id}" do%>
+<%= turbo_frame_tag "tweet_#{tweet.id}" do%>
     <div class="post">
         <div class="post_avatar">
             <%if !tweet.tweet.user.profile_image.byte_size.nil?%>
@@ -33,8 +33,8 @@
                     <span><%=link_to "",tweet ,class:"fa-solid fa-comment",data:{"turbo-frame": "_top"}%>  <%=tweet.tweet.comments.count%></span>
                 </div>
 
-                <div class="retweetOption">
-                    <span><%=link_to "",retweet_tweet_path(tweet.tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"}%></span>
+                <div class="retweetedOption">
+                    <span><%=button_to "",retweet_tweet_path(tweet.tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"}%></span>
                 </div>
 
                 <div class="deleteOption">

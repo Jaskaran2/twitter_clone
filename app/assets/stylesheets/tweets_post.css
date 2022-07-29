@@ -70,12 +70,42 @@
    width: 3rem;
  }
 
+ .likeOption:hover{
+   color:#ff3855
+ }
+
  .like{
    color:#ff3855
  }
+ button.fa-heart:hover{
+   border: none;
+   margin-right: 4px;
+   color:#ff3855
+ }
+
 
  button.fa-heart{
    border: none;
    margin-right: 4px;
  }
+ .retweetOption button{
+   border: none;
+ }
+
+ .retweetedOption button{
+   border: none;
+   color:#ff3855
+ }
+
+ .retweetOption button:hover{
+   border: none;
+   color:#ff3855
+ }
+.fa-trash{
+   color: black;
+}
+.fa-trash:hover{
+   color: red;
+}
+ 
  /* ............................................................................. */

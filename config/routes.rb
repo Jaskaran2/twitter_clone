@@ -12,7 +12,10 @@ Rails.application.routes.draw do
 
   post 'like/:id',to: "tweets#like",as: "like_tweet"
 
-  resources :profiles
+  resources :profiles do
+    resources :friendships,only: [:create,:destroy]
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

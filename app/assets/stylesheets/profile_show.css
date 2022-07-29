@@ -41,3 +41,8 @@
     height: 10rem;
     width: 10rem;
 }
+
+h3.follow_unfollow_button{
+    display:flex;
+    align-items:center;
+}

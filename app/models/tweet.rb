@@ -12,9 +12,6 @@ class Tweet < ApplicationRecord
 
   validates :body,presence: true,unless: :tweet_id
 
-  after_create_commit{broadcast_append_to "tweets"}
-  
-  after_update_commit{broadcast_append_to "tweets"}
 
   def tweet_type
     if tweet_id?
