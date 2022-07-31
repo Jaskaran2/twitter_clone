@@ -44,7 +44,10 @@ class User < ApplicationRecord
       liked_tweets<<tweet
     end
     public_target="tweet_#{tweet.id}_public_likes"
-    broadcast_replace_later_to "public_likes",partial:"likes/likes_count",locals:{tweet:@tweet}
+    broadcast_replace_later_to "public_likes",
+                                target:public_target,
+                                partial:"likes/like_count",
+                                locals:{tweet:tweet}
   end
 
 

@@ -51,9 +51,7 @@ class TweetsController<ApplicationController
         @tweet= Tweet.find(params[:id])
         current_user.like(@tweet)
         redirect_to do |format|
-            format.turbo_stream do
-                render turbo_stream: private_stream
-            end
+            format.turbo_stream
         end
     end
 
@@ -76,17 +74,6 @@ class TweetsController<ApplicationController
 
     def tweet_params
       params.require(:tweet).permit(:body,:tweet_id)
-    end
-
-    def private_stream
-
-        private_target="#{helpers.dom_id(@tweet)}_private_likes"
-        turbo_stream.replace(private_target,
-                            partial:"likes/like_button",
-                            locals:{tweet:@tweet,
-                            like_status:current_user.liked?(@tweet)
-                        } 
-                        )
     end
 
 end

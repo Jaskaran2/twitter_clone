@@ -1,0 +1,7 @@
+<% turbo_frame_tag "tweets" do%>
+<%turbo_frame_tag "#{dom_id(@tweet)}" do%>
+<%= turbo_stream.replace "#{dom_id(@tweet)}_private_likes", partial: "likes/like_button",    
+locals:{tweet:@tweet,like_status:current_user.liked?(@tweet)}  %>
+<%end%>
+<%end%>
+ 

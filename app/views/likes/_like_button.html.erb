@@ -6,6 +6,7 @@
 <%= turbo_frame_tag "#{dom_id(tweet)}_private_likes" do%>
     <%like_button_class = like_status ? "fa-solid fa-heart like" : "fa-solid fa-heart unlike"%>
     <span class="post_likes_box">
-    <%=button_to "",like_tweet_path(tweet),class:like_button_class,method: :post %>  <%= render "likes/like_count", tweet:tweet%>
+    <%=button_to "",like_tweet_path(tweet),class:like_button_class,method: :post %>  
+<%end%> 
+    <%= render "likes/like_count", tweet:tweet%>
     </span>
-<%end%>
