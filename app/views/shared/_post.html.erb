@@ -1,43 +1,37 @@
 <% tweets.each do |tweet| %>
-    <div class="post">
-        <div class="post_avatar">
-            <%if !tweet.user.profile_image.byte_size.nil?%>
-               <%= image_tag tweet.user.profile_image,class:"post_image"%>
-            <%else%>
-                <%=gravatar_image_tag(tweet.user.email, size:64,alt:current_user.name,class:"post_image")%>
-            <%end%>
+  <div class="post">
+    <div class="post_avatar">
+      <%if !tweet.user.profile_image.byte_size.nil?%>
+        <%= image_tag tweet.user.profile_image,class:"post_image"%>
+      <%else%>
+        <%=gravatar_image_tag(tweet.user.email, size:64,alt:current_user.name,class:"post_image")%>
+      <%end%>
+    </div>
+    <div class="post_body">
+      <div class="post_header">
+        <div class="post_headerText">
+          <h3><%=tweet.user.name%> <span class="post_headerSpecial"> @<%=tweet.user.username%></span></h3>
+          <p class="post_headerTimestamp"><%= tweet.created_at%> </p>
         </div>
-
-        <div class="post_body">
-
-            <div class="post_header">   
-                <div class="post_headerText">
-                    <h3><%=tweet.user.name%> <span class="post_headerSpecial"> @<%=tweet.user.username%></span></h3>
-                    <p class="post_headerTimestamp"><%= tweet.created_at%> </p>
-                    
-                </div>
-
-                <div class=post_headerDescription>
-                    <p> <%=tweet.body%></p>
-                </div>
-            </div>
-
-            <div class="post_footer">
-                <i class="fa-solid fa-heart"></i>
-                <div class="commentOption">
-                    <span><%=link_to "",tweet ,class:"fa-solid fa-comment"%>  <%=tweet.comments.count%></span>
-                </div>
-                <i class="fa-solid fa-retweet"></i>
-            <% if tweet.user.id == current_user.id %>
-                <div class="deleteOption">
-                    <%= link_to "", tweet_path(tweet), data: {
+        <div class=post_headerDescription>
+          <p> <%=tweet.body%></p>
+        </div>
+      </div>
+      <div class="post_footer">
+        <i class="fa-solid fa-heart"></i>
+        <div class="commentOption">
+          <span><%=link_to "",tweet ,class:"fa-solid fa-comment"%>  <%=tweet.comments.count%></span>
+        </div>
+        <i class="fa-solid fa-retweet"></i>
+        <% if tweet.user.id == current_user.id %>
+          <div class="deleteOption">
+            <%= link_to "", tweet_path(tweet), data: {
                         turbo_method: :delete,
                         turbo_confirm: "Are you sure?"   
                         },class:"fa-solid fa-trash" %>
-                </div>
-             <% end %>
-            </div>
-
-        </div>
+          </div>
+        <% end %>
+      </div>
     </div>
+  </div>
 <%end%>

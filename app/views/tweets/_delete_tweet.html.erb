@@ -1,5 +1,5 @@
 <% if tweet.user.id == Current.user.id %>
-    <%= link_to "", tweet_path(tweet), data: {
+  <%= link_to "", tweet_path(tweet), data: {
     turbo_method: :delete,
     turbo_confirm: "Are you sure?"   
     },class:"fa-solid fa-trash" %>

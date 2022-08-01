@@ -1,12 +1,12 @@
 <style>
-.post_likes_box{
-    display:flex;
-}
+  .post_likes_box{
+      display:flex;
+  }
 </style>
 <%= turbo_frame_tag "#{dom_id(tweet)}_private_likes" do%>
-    <%like_button_class = like_status ? "fa-solid fa-heart like" : "fa-solid fa-heart unlike"%>
-    <span class="post_likes_box">
-    <%=button_to "",like_tweet_path(tweet),class:like_button_class,method: :post %>  
-<%end%> 
+  <%like_button_class = like_status ? "fa-solid fa-heart like" : "fa-solid fa-heart unlike"%>
+  <span class="post_likes_box">
+    <%=button_to "",like_tweet_path(tweet),class:like_button_class ,method: :post ,data: { turbo_frame: "#{dom_id(tweet)}_private_likes" } %>
     <%= render "likes/like_count", tweet:tweet%>
-    </span>
+  </span>
+<%end%>

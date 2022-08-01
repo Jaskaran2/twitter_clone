@@ -50,6 +50,9 @@ class TweetsController<ApplicationController
     def like
         @tweet= Tweet.find(params[:id])
         current_user.like(@tweet)
+    end
+
+    def like_button
         redirect_to do |format|
             format.turbo_stream
         end

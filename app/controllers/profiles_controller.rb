@@ -3,4 +3,8 @@ class ProfilesController<ApplicationController
         @profile=User.find(params[:id])
     end
 
+    def friendlist
+        @profile=User.find(params[:id])
+    end
+
 end

@@ -1,0 +1,56 @@
+<style>
+  .profile_page{
+      display:flex;
+  }
+  #followers{
+    flex:0.35
+  }
+
+  #followings{
+    flex:0.35;
+  }
+</style>
+<div class="profile_page">
+  <%=render "shared/sidebar"%>
+  <div id="followers">
+    <h2>Followers</h2>
+    <%@profile.followers.each do |f|%>
+      <div class="post_avatar">
+        <%if !f.profile_image.byte_size.nil?%>
+          <%= image_tag f.profile_image,class:"post_image"%>
+        <%else%>
+          <%=gravatar_image_tag(f.email, size:64,alt:f.name,class:"post_image")%>
+        <%end%>
+      </div>
+      <div class="post_body">
+        <div class="post_header">
+          <div class="post_headerText">
+            <h3>User name- <%=link_to f.username, profile_path(f.id)%></h3>
+            <h3>Email- <%= f.email %></h3>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+  <div id="followings">
+    <h2>Followings</h2>
+    <%@profile.following.each do |f|%>
+      <div class="post_avatar">
+        <%if !f.profile_image.byte_size.nil?%>
+          <%= image_tag f.profile_image,class:"post_image"%>
+        <%else%>
+          <%=gravatar_image_tag(f.email, size:64,alt:f.name,class:"post_image")%>
+        <%end%>
+      </div>
+      <div class="post_body">
+        <div class="post_header">
+          <div class="post_headerText">
+            <h3>User name- <%=link_to f.username, profile_path(f.id)%></h3>
+            <h3>Email- <%= f.email %></h3>
+          </div>
+        </div>
+      <%end%>
+    </div>
+  </div>
+</div>
+</div>

@@ -20,6 +20,7 @@
     border-bottom:8px solid var(--twitter-background);
     padding-right:10px;
     align-items:center;
+    width: 100%;
  }
  
  .commentBox>form{
@@ -30,6 +31,7 @@
  .commentBox_input{
     padding:20px;
     display:flex;
+    width: 100%;
  }
  
  .commentBox_input>textarea{

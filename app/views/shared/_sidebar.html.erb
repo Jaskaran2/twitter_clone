@@ -1,24 +1,23 @@
 <div class="sidebar">
-    <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>
-
-    <div class="sidebarOption active">
-        <i class="fa-solid fa-house-user"></i>
-        <%=link_to "Home",root_path,class:"sidebarOption_home"%>
-    </div>
-
-    <div class="sidebarOption">
-          <i class="fa-solid fa-user"></i>
-          <%=link_to "Profile", profile_path(current_user.id),class:"sidebarOption_profile"%>
-    </div>
-
-    <div class="sidebarOption">
-        <i class="fa-solid fa-bell"></i>
-        <h2>Notification</h2>
-    </div>
-
-    <div class="sidebarOption">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <h2> <%= button_to "Logout", destroy_user_session_path,method: :delete,class:"logout_button" %></h2>
-    </div>
-
+  <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>
+  
+  <div class="sidebarOption active">
+    <i class="fa-solid fa-house-user"></i>
+    <%=link_to "Home",root_path,class:"sidebarOption_home"%>
+  </div>
+  
+  <div class="sidebarOption">
+    <i class="fa-solid fa-user"></i>
+    <%=link_to "Profile", profile_path(current_user.id),class:"sidebarOption_profile"%>
+  </div>
+  
+  <div class="sidebarOption">
+    <i class="fa-solid fa-bell"></i>
+    <h2>Notification</h2>
+  </div>
+  
+  <div class="sidebarOption">
+    <i class="fa-solid fa-right-from-bracket"></i>
+    <h2> <%= button_to "Logout", destroy_user_session_path,method: :delete,class:"logout_button" %></h2>
+  </div>
 </div>
