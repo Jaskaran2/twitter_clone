@@ -1,23 +1,39 @@
+<script>
+$(".sidebarOption_notification").click(function(){
+    console.log("I am here")
+    $.ajax("/notifications/mark_as_read",{
+        dataType: "json",
+        type: "POST"
+    })
+})
+</script>
+
 <div class="sidebar">
-  <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>
-  
-  <div class="sidebarOption active">
-    <i class="fa-solid fa-house-user"></i>
-    <%=link_to "Home",root_path,class:"sidebarOption_home"%>
-  </div>
-  
-  <div class="sidebarOption">
-    <i class="fa-solid fa-user"></i>
-    <%=link_to "Profile", profile_path(current_user.id),class:"sidebarOption_profile"%>
-  </div>
-  
-  <div class="sidebarOption">
-    <i class="fa-solid fa-bell"></i>
-    <h2>Notification</h2>
-  </div>
-  
-  <div class="sidebarOption">
-    <i class="fa-solid fa-right-from-bracket"></i>
-    <h2> <%= button_to "Logout", destroy_user_session_path,method: :delete,class:"logout_button" %></h2>
-  </div>
+    <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>
+
+    <div class="sidebarOption active">
+        <i class="fa-solid fa-house-user"></i>
+        <%=link_to "Home",root_path,class:"sidebarOption_home",style:"color:black"%>
+    </div>
+
+    <div class="sidebarOption">
+          <i class="fa-solid fa-user"></i>
+          <%=link_to "Profile", profile_path(current_user.id),class:"sidebarOption_profile",style:"color:black"%>
+    </div>
+
+    <div class="sidebarOption">
+        <% if Current.user.notifications.unread.count>0 %>
+         <i class="fa-solid fa-bell" style="color:red"><%=Current.user.notifications.unread.count%></i>
+         <%=link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:black"%>
+        <%else%>
+        <i class="fa-solid fa-bell"></i>
+        <%=link_to "Notification", notifications_path,class:"sidebarOption_profile",style:"color:black"%>
+        <%end%>
+    </div>
+
+    <div class="sidebarOption">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <h2> <%= button_to "Logout", destroy_user_session_path,method: :delete,class:"logout_button" %></h2>
+    </div>
+
 </div>

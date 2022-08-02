@@ -4,7 +4,6 @@ class FriendshipsController<ApplicationController
 
     def create
         current_user.follow(@user)
-        puts current_user.following?(@user)
         redirect_to profile_path(@user)
     end
 

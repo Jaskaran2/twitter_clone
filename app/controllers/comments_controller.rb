@@ -2,14 +2,12 @@ class CommentsController<ApplicationController
     before_action :authenticate_user!
 
     def create
-        #post = Post.joins(:comments).first
         @tweet = Tweet.find(params[:tweet_id])
         @comment = @tweet.comments.create(comment_params.merge(user:current_user))
-        # respond_to do |format|
-        #     if @comment.save
-        #         format.turbo_stream
-        #     end
-        # end     
+
+        #create notification for user
+        Notification.create(recipient:@tweet.user,actor:current_user,action:"comment",notifiable:@comment)
+   
         redirect_to tweet_path(@tweet) 
     end
 

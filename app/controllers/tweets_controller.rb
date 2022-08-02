@@ -62,6 +62,8 @@ class TweetsController<ApplicationController
         @tweet= Tweet.find(params[:id])
 
         @retweet=current_user.tweets.new(tweet_id:@tweet.id,user_id:current_user.id)
+        #create notification for user
+        Notification.create(recipient:@tweet.user,actor:current_user,action:"retweet",notifiable:@retweet)
         respond_to do |format|
             if @retweet.save
                 format.turbo_stream
