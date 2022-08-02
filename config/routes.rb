@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers =>{registrations:'registrations'}
   get 'home/index'
 
+  mount ActionCable.server => '/cable'
+  
   resources :tweets, :except =>[:edit] do
     resources :comments
     member do

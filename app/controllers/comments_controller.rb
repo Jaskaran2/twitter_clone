@@ -6,7 +6,8 @@ class CommentsController<ApplicationController
         @comment = @tweet.comments.create(comment_params.merge(user:current_user))
 
         #create notification for user
-        Notification.create(recipient:@tweet.user,actor:current_user,action:"comment",notifiable:@comment)
+        notification=Notification.create(recipient:@tweet.user,actor:current_user,action:"comment",notifiable:@comment)
+        NotificationRelayJob.perform_later(notification)
    
         redirect_to tweet_path(@tweet) 
     end

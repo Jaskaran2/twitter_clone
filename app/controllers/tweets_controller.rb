@@ -63,7 +63,8 @@ class TweetsController<ApplicationController
 
         @retweet=current_user.tweets.new(tweet_id:@tweet.id,user_id:current_user.id)
         #create notification for user
-        Notification.create(recipient:@tweet.user,actor:current_user,action:"retweet",notifiable:@retweet)
+        notification= Notification.create(recipient:@tweet.user,actor:current_user,action:"retweet",notifiable:@retweet)
+        NotificationRelayJob.perform_later(notification)
         respond_to do |format|
             if @retweet.save
                 format.turbo_stream

@@ -25,13 +25,15 @@ class User < ApplicationRecord
   def follow(user)
     active_friendships.create(followed_id: user.id)
     #create notification for follow
-    Notification.create(recipient:user,actor:Current.user,action:"followed",notifiable:user)
+    notification=Notification.create(recipient:user,actor:Current.user,action:"followed",notifiable:user)
+    NotificationRelayJob.perform_later(notification)
   end
 
   def unfollow(user)
     active_friendships.find_by(followed_id: user.id).destroy
       #create notification for unfollow
-      Notification.create(recipient:user,actor:Current.user,action:"unfollowed",notifiable:user)
+      notification=Notification.create(recipient:user,actor:Current.user,action:"unfollowed",notifiable:user)
+      NotificationRelayJob.perform_later(notification)
   end
 
   def following?(user)
@@ -40,18 +42,20 @@ class User < ApplicationRecord
 
 
   def liked?(tweet)
-   liked_tweets.include?(tweet)
+    liked_tweets.include?(tweet)
   end
 
   def like(tweet)
     if liked_tweets.include?(tweet)
       liked_tweets.destroy(tweet)
-       #create unlike notification
-       Notification.create(recipient:tweet.user,actor:Current.user,action:"unlike",notifiable:tweet)
+        #create unlike notification
+        notification=Notification.create(recipient:tweet.user,actor:Current.user,action:"unlike",notifiable:tweet)
+        NotificationRelayJob.perform_later(notification)
     else
       liked_tweets<<tweet
-       #create like notification
-       Notification.create(recipient:tweet.user,actor:Current.user,action:"like",notifiable:tweet)
+        #create like notification
+        notification=Notification.create(recipient:tweet.user,actor:Current.user,action:"like",notifiable:tweet)
+        NotificationRelayJob.perform_later(notification)
     end
     public_target="tweet_#{tweet.id}_public_likes"
     broadcast_replace_later_to "public_likes",
