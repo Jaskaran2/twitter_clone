@@ -53,7 +53,7 @@ class TweetsController<ApplicationController
     end
 
     def like_button
-        redirect_to do |format|
+        respond_to do |format|
             format.turbo_stream
         end
     end
@@ -75,7 +75,8 @@ class TweetsController<ApplicationController
 
     end
 
-    def likeables      
+    def likeables     
+        @tweet= Tweet.find(params[:id])
     end
     
     private
