@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     member do
       post :retweet
       get :retweet
+      get :likeables
     end
   end
 

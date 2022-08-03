@@ -1,0 +1,18 @@
+<div class="app">
+  <%=render "shared/sidebar"%>
+  <div class="people_likes_names">
+    <%@tweet.likes.each do |like|%>
+      <div class="wrapper">
+        <%if !like.profile_image.byte_size.nil?%>
+          <%= image_tag like.profile_image,class:"notification_image"%>
+        <%else%>
+          <%=gravatar_image_tag(like.email, size:64,alt:like.name,class:"notification_image")%>
+        <%end%>
+        <article>
+          <h4>@<%=link_to "#{like.username}",profile_path(like)%></h4>
+          <p><%="#{like.username} liked your post"%></p>
+        </article>
+      </div>
+    <%end%>
+  </div>
+</div>

@@ -75,6 +75,8 @@ class TweetsController<ApplicationController
 
     end
 
+    def likeables      
+    end
     
     private
 

@@ -21,7 +21,7 @@
       </div>
       <div class="post_footer">
         <div class="likeOption">
-          <%=render "likes/like_button",tweet:tweet.tweet,like_status:like_status%>
+          <%=render "likes/like_button",tweet:tweet,like_status:like_status%>
         </div>
         <div class="commentOption">
           <span><%=link_to "",tweet ,class:"fa-solid fa-comment",data:{"turbo-frame": "_top"}%>  <%=tweet.tweet.comments.count%></span>
