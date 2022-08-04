@@ -11,7 +11,7 @@
   }
 </style>
 <div class="profile_page">
-  <%=render "shared/sidebar"%>
+  <%=render "shared/sidebar",current_user:Current.user%>
   <div id="followers">
     <h2>Followers</h2>
     <%@profile.followers.each do |f|%>

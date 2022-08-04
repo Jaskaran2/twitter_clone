@@ -40,3 +40,8 @@
 img{
    border-radius: 100%;
 }
+
+#notify{
+   display: flex;
+   align-items: center;
+}

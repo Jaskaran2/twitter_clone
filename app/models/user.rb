@@ -27,6 +27,10 @@ class User < ApplicationRecord
     #create notification for follow
     notification=Notification.create(recipient:user,actor:Current.user,action:"followed",notifiable:user)
     NotificationRelayJob.perform_later(notification)
+
+    broadcast_replace_later_to "notification_bell",
+    target:"notification_bell_icon",
+    partial:"notifications/bellnotification"
   end
 
   def unfollow(user)
@@ -34,6 +38,10 @@ class User < ApplicationRecord
       #create notification for unfollow
       notification=Notification.create(recipient:user,actor:Current.user,action:"unfollowed",notifiable:user)
       NotificationRelayJob.perform_later(notification)
+
+      broadcast_replace_later_to "notification_bell",
+      target:"notification_bell_icon",
+      partial:"notifications/bellnotification"
   end
 
   def following?(user)
@@ -57,6 +65,11 @@ class User < ApplicationRecord
         notification=Notification.create(recipient:tweet.user,actor:Current.user,action:"like",notifiable:tweet)
         NotificationRelayJob.perform_later(notification)
     end
+    
+    
+    broadcast_replace_later_to "notification_bell",
+                                target:"notification_bell_icon",
+                                partial:"notifications/bellnotification"
     
     public_target="tweet_#{tweet.id}_public_likes"
     broadcast_replace_later_to "public_likes",

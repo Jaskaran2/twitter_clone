@@ -72,6 +72,10 @@ class TweetsController<ApplicationController
                 format.html{redirect_back fallback_location:@tweet,alert:"Something went wrong while retweeting"}
             end
         end
+        
+        broadcast_replace_later_to "notification_bell",
+        target:"notification_bell_icon",
+        partial:"notifications/bellnotification"
 
     end
 

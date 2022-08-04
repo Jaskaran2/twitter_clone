@@ -1,17 +1,17 @@
-<%like_status||= local_assigns[:like_status] %>
+<% like_status||= local_assigns[:like_status] %>
 <div class="app">
-  <%=render "shared/sidebar"%>
+  <%= render "shared/sidebar",current_user: Current.user  %>
   <div class="feed">
     <div class="feed_header">
       <h2>Home</h2>
     </div>
     <%= render "form", tweet: @tweet %>
-    <%=turbo_stream_from "public_likes"%>
-    <%=turbo_frame_tag "tweets" do%>
-      <%@tweets.all.each do |tweet|%>
-        <%=render "tweets/#{tweet.tweet_type.parameterize}", tweet:tweet, like_status: Current.user.liked?(tweet) %>
-      <%end%>
-    <%end%>
+    <%= turbo_stream_from "public_likes" %>
+    <%= turbo_frame_tag "tweets" do %>
+      <% @tweets.all.each do |tweet| %>
+        <%= render "tweets/#{tweet.tweet_type.parameterize}", tweet:tweet, like_status: Current.user.liked?(tweet) %>
+      <% end %>
+    <% end %>
   </div>
 </div>
 </div>

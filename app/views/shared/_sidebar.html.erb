@@ -7,6 +7,8 @@ $(".sidebarOption_notification").click(function(){
 })
 </script>
 
+
+<%= turbo_stream_from "notification_bell" %>
 <div class="sidebar">
     <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>
 
@@ -21,13 +23,7 @@ $(".sidebarOption_notification").click(function(){
     </div>
 
     <div class="sidebarOption">
-        <% if Current.user.notifications.unread.count>0 %>
-         <i class="fa-solid fa-bell" style="color:red" id="notified_bell"><%=Current.user.notifications.unread.count%></i>
-         <%=link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:red"%>
-        <%else%>
-        <i class="fa-solid fa-bell" id="unnotified_bell"></i>
-        <%=link_to "Notification", notifications_path,class:"sidebarOption_profile",style:"color:black"%>
-        <%end%>
+      <%= render partial:"notifications/bellnotification"%>
     </div>
 
     <div class="sidebarOption">

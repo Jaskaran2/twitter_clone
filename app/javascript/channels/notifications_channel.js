@@ -10,7 +10,6 @@ consumer.subscriptions.create("NotificationsChannel", {
   },
 
   received(data) {
-    console.log(data);
     $(".notification_message").prepend(data.html);
   }
 });
