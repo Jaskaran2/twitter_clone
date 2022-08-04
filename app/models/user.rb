@@ -57,6 +57,7 @@ class User < ApplicationRecord
         notification=Notification.create(recipient:tweet.user,actor:Current.user,action:"like",notifiable:tweet)
         NotificationRelayJob.perform_later(notification)
     end
+    
     public_target="tweet_#{tweet.id}_public_likes"
     broadcast_replace_later_to "public_likes",
                                 target:public_target,

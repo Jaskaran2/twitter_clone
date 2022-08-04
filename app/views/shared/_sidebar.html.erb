@@ -1,6 +1,5 @@
 <script>
 $(".sidebarOption_notification").click(function(){
-    console.log("I am here")
     $.ajax("/notifications/mark_as_read",{
         dataType: "json",
         type: "POST"
@@ -23,10 +22,10 @@ $(".sidebarOption_notification").click(function(){
 
     <div class="sidebarOption">
         <% if Current.user.notifications.unread.count>0 %>
-         <i class="fa-solid fa-bell" style="color:red"><%=Current.user.notifications.unread.count%></i>
-         <%=link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:black"%>
+         <i class="fa-solid fa-bell" style="color:red" id="notified_bell"><%=Current.user.notifications.unread.count%></i>
+         <%=link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:red"%>
         <%else%>
-        <i class="fa-solid fa-bell"></i>
+        <i class="fa-solid fa-bell" id="unnotified_bell"></i>
         <%=link_to "Notification", notifications_path,class:"sidebarOption_profile",style:"color:black"%>
         <%end%>
     </div>

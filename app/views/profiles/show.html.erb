@@ -14,12 +14,12 @@
       
       <div class="post_headerText">
         <h3 class="follow_unfollow_button">
-          <%=@profile.name  %>
+          <%= @profile.name  %>
           <% if !(@profile.id==Current.user.id)%>
             <%if Current.user.following?(@profile)%>
-              <%=button_to "Unfollow",profile_friendship_path(@profile),method: :delete,class:"btn btn-danger ms-3"%></button>
+              <%= render "unfollow",profile:@profile%>
           <%elsif%>
-            <%=button_to "Follow",profile_friendships_path(@profile),class:"btn btn-primary ms-3"%></button>
+            <%= render "follow",profile:@profile%>
         <%end%>
       <%elsif%>
         <%=link_to "" , edit_user_registration_path,class:"fa-solid fa-gear ms-4"%>

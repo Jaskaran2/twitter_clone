@@ -1,8 +1,12 @@
 <div class="app">
   <%=render "shared/sidebar"%>
   <div class="post single_post">
-    <div class="post_avatar">
-      <i class="fa-solid fa-user"></i>
+     <div class="post_avatar">
+      <%if !@tweet.user.profile_image.byte_size.nil?%>
+        <%= image_tag @tweet.user.profile_image,class:"post_image"%>
+      <%else%>
+        <%=gravatar_image_tag(@tweet.user.email, size:64,alt:Current.user.name,class:"post_image")%>
+      <%end%>
     </div>
     <div class="post_body">
       <div class="post_header">
@@ -14,18 +18,16 @@
           <p> <%=@tweet.body%></p>
         </div>
       </div>
-      <div class="post_footer">
-        <i class="fa-solid fa-heart"></i>
-        <i class="fa-solid fa-comment"></i>
-        <i class="fa-solid fa-retweet"></i>
-      </div>
+     <br>
       <div class="comments_form">
         <%= render 'comments/form' %>
       </div>
+    <%= turbo_frame_tag "comments" do%> 
       <div class="comments_body">
         <%if @tweet.comments.length > 1 %>
           <%= render @tweet.comments %>
         <%end%>
       </div>
+      <%end%>
     </div>
   </div>
