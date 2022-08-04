@@ -40,3 +40,12 @@
 img{
    border-radius: 100%;
 }
+
+#user_notification_bell{
+   display: flex;
+   align-items: center;
+}
+#follow_unfollow_list{
+   display: flex;
+   align-items: center;
+}
