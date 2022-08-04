@@ -29,8 +29,10 @@ class User < ApplicationRecord
     NotificationRelayJob.perform_later(notification)
 
     broadcast_replace_later_to "notification_bell",
-    target:"notification_bell_icon",
-    partial:"notifications/bellnotification"
+                                target:"#{ notification.recipient.id}_notification_bell_icon",
+                                partial:"shared/bellnotification",
+                                locals: {current_user: Current.user}
+
   end
 
   def unfollow(user)
@@ -40,8 +42,10 @@ class User < ApplicationRecord
       NotificationRelayJob.perform_later(notification)
 
       broadcast_replace_later_to "notification_bell",
-      target:"notification_bell_icon",
-      partial:"notifications/bellnotification"
+                                  target:"#{ notification.recipient.id}_notification_bell_icon",
+                                  partial:"shared/bellnotification",
+                                  locals: {current_user: Current.user}
+
   end
 
   def following?(user)
@@ -66,10 +70,11 @@ class User < ApplicationRecord
         NotificationRelayJob.perform_later(notification)
     end
     
-    
     broadcast_replace_later_to "notification_bell",
-                                target:"notification_bell_icon",
-                                partial:"notifications/bellnotification"
+                                target:"#{ notification.recipient.id}_notification_bell_icon",
+                                partial:"shared/bellnotification",
+                                locals: {current_user: Current.user}
+   
     
     public_target="tweet_#{tweet.id}_public_likes"
     broadcast_replace_later_to "public_likes",

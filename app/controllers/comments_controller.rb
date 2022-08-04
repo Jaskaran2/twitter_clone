@@ -18,10 +18,6 @@ class CommentsController<ApplicationController
         end
     end
 
-      broadcast_replace_later_to "notification_bell",
-                                  target:"notification_bell_icon",
-                                  partial:"notifications/bellnotification"
-
      # redirect_to tweet_path(@tweet) 
     end
   

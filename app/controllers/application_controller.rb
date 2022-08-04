@@ -11,4 +11,6 @@ class ApplicationController < ActionController::Base
       Current.user.notifications=@notifications
     end
 
+    
+
 end
