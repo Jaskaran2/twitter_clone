@@ -1,15 +1,31 @@
+<%if !comment.id.nil?%>
 <div class="post">
-  
+ <div class="post_avatar">
+      <%if !comment.user.profile_image.byte_size.nil?%>
+        <%= image_tag comment.user.profile_image,class:"post_image"%>
+      <%else%>
+        <%=gravatar_image_tag(comment.user.email, size:64,alt:Current.user.name,class:"post_image")%>
+      <%end%>
+    </div>
   <div class="post_body">
-    <div class="post_header"> 
+    <div class="post_header">
+    <div class="post_headerText">
+          <h3><%=link_to comment.user.name, profile_path(comment.user.id),data:{"turbo-frame": "_top"}%><span class="post_headerSpecial"> @<%=comment.user.username%></span></h3>
+          <p class= "post_headerTimestamp"><%= comment.created_at%> </p>
+        </div>
       <div class=post_headerDescription>
         <p> <%=comment.body%></p>
       </div>
     </div>
     <div class="post_footer">
-      <i class="fa-solid fa-heart"></i>
-      <i class="fa-solid fa-retweet"></i>
-      <div class="deleteOption">         
+      <div class="likeOption"> 
+        <% like_button_class = Current.user.liked_comment?(comment) ? "fa-solid fa-heart like" : "fa-solid fa-heart unlike" %>
+        <span class="post_likes_box">
+          <%= button_to "",like_comment_path(id:comment.id,tweet_id:comment.tweet_id),class:like_button_class ,method: :post,data:{"turbo-frame": "_top"} %>
+           <%= pluralize(comment.likes.count,"Like") %>
+        </span>
+      </div>
+      <div class="deleteOption">
         <%= link_to "", [comment.tweet, comment], data: {
               turbo_method: :delete,
               turbo_confirm: "Are you sure?"
@@ -18,3 +34,4 @@
     </div>
   </div>
 </div>
+<%end%>

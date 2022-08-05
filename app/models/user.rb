@@ -5,9 +5,10 @@ class User < ApplicationRecord
   has_many :tweets, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  has_many :likeables,dependent: :destroy
+  has_many :likes,dependent: :destroy
   #user.liked_tweets shows tweets user has liked
-  has_many :liked_tweets,through: :likeables,source: :tweet
+  has_many :liked_tweets,through: :likes,source_type: "Tweet",source: :likeable
+  has_many :liked_comments,through: :likes,source_type: "Comment",source: :likeable
 
   has_many :active_friendships,class_name:"Friendship",foreign_key:"follower_id",dependent: :destroy
   has_many :following, through: :active_friendships,source: :followed
@@ -52,6 +53,10 @@ class User < ApplicationRecord
     liked_tweets.include?(tweet)
   end
 
+  def liked_comment?(comment)
+    liked_comments.include?(comment)
+  end
+
   def like(tweet)
     if liked_tweets.include?(tweet)
       liked_tweets.destroy(tweet)
@@ -63,16 +68,25 @@ class User < ApplicationRecord
         #create like notification
         notification=Notification.create(recipient:tweet.user,actor:Current.user,action:"like",notifiable:tweet)
         NotificationRelayJob.perform_later(notification)
-    end
+    end 
     
     notify(notification)
-    
     public_target="tweet_#{tweet.id}_public_likes"
     broadcast_replace_later_to "public_likes",
                                 target:public_target,
                                 partial:"likes/like_count",
                                 locals:{tweet:tweet}
   end
+
+
+  def like_comment(comment)
+    if liked_comments.include?(comment)
+      liked_comments.destroy(comment)
+    else
+      liked_comments<<comment
+    end
+  end
+
 
 
 

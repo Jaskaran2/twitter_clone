@@ -5,9 +5,7 @@ class Tweet < ApplicationRecord
 
   has_many :comments,dependent: :destroy
 
-  has_many :likeables,dependent: :destroy
-  #tweet.likes shows users that liked the tweet
-  has_many :likes,through: :likeables,source: :user
+  has_many :likes,as: :likeable
 
   validates :body,presence: true,unless: :tweet_id
 

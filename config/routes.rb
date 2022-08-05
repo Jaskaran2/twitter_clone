@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   post 'like/:id',to: "tweets#like",as: "like_tweet"
   get  'like/:id',to: "tweets#like_button",as: "like_button"
+
+  post '/tweets/:tweet_id/comments/:id',to: "comments#like_comment",as: "like_comment"
   
   resources :notifications do
     collection do
