@@ -34,7 +34,12 @@ class CommentsController<ApplicationController
       @tweet = Tweet.find(params[:tweet_id])
       @comment = @tweet.comments.find(params[:id])
       current_user.like_comment(@comment)
-      redirect_to tweet_path(@tweet)
+
+      respond_to do |format|
+        format.turbo_stream
+      end
+  
+      #redirect_to tweet_path(@tweet)
     end
     private
 

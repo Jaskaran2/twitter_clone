@@ -5,19 +5,13 @@ class TweetsController<ApplicationController
     include NotificationHelper
 
     def index
-        
-        #binding.pry
-        
         @tweets = Tweet.all.order("created_at DESC")
         @user_gid=current_user.to_gid_param if current_user
         if current_user.nil?
             redirect_to new_user_session_path,notice: "You first need to sign in!!"
         else
         @tweet = current_user.tweets.new
-        end
-
-        
-           
+        end        
     end
 
     def show
