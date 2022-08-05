@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_01_080926) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_05_071901) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_080926) do
     t.bigint "tweet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "comment_id"
     t.index ["tweet_id"], name: "index_likeables_on_tweet_id"
     t.index ["user_id"], name: "index_likeables_on_user_id"
   end
