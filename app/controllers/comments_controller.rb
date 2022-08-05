@@ -1,5 +1,6 @@
 class CommentsController<ApplicationController
     before_action :authenticate_user!
+    include NotificationHelper
     
     def create
       @tweet = Tweet.find(params[:tweet_id])
@@ -17,7 +18,8 @@ class CommentsController<ApplicationController
         render :index
         end
     end
-
+    
+    notify(notification)
      # redirect_to tweet_path(@tweet) 
     end
   

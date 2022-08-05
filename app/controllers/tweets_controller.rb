@@ -2,6 +2,7 @@ class TweetsController<ApplicationController
 
     before_action :authenticate_user!, except:[:index,:show]
     skip_before_action :verify_authenticity_token
+    include NotificationHelper
 
     def index
         
@@ -78,6 +79,7 @@ class TweetsController<ApplicationController
                 format.html{redirect_back fallback_location:@tweet,alert:"Something went wrong while retweeting"}
             end
         end
+        notify(notification)
     end
 
     def likeables     

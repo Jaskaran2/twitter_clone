@@ -1,6 +1,17 @@
 <div class="post">
+  <div class="post_avatar">
+      <%if !comment.user.profile_image.byte_size.nil?%>
+        <%= image_tag comment.user.profile_image,class:"post_image"%>
+      <%else%>
+        <%=gravatar_image_tag(comment.user.email, size:64,alt:Current.user.name,class:"post_image")%>
+      <%end%>
+    </div>
   <div class="post_body">
-    <div class="post_header">   
+    <div class="post_header">
+    <div class="post_headerText">
+          <h3><%=link_to comment.user.name, profile_path(comment.user.id),data:{"turbo-frame": "_top"}%><span class="post_headerSpecial"> @<%=comment.user.username%></span></h3>
+          <p class= "post_headerTimestamp"><%= comment.created_at%> </p>
+    </div>   
       <div class=post_headerDescription>
         <p> <%=comment.body%></p>
       </div>

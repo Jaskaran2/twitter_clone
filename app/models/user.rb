@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  include NotificationHelper
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :tweets, dependent: :destroy
@@ -28,10 +29,7 @@ class User < ApplicationRecord
     notification=Notification.create(recipient:user,actor:Current.user,action:"followed",notifiable:user)
     NotificationRelayJob.perform_later(notification)
 
-    broadcast_replace_later_to "notification_bell",
-                                target:"#{ notification.recipient.id}_notification_bell_icon",
-                                partial:"shared/bellnotification",
-                                locals: {current_user: Current.user}
+    notify(notification)
 
   end
 
@@ -41,10 +39,7 @@ class User < ApplicationRecord
       notification=Notification.create(recipient:user,actor:Current.user,action:"unfollowed",notifiable:user)
       NotificationRelayJob.perform_later(notification)
 
-      broadcast_replace_later_to "notification_bell",
-                                  target:"#{ notification.recipient.id}_notification_bell_icon",
-                                  partial:"shared/bellnotification",
-                                  locals: {current_user: Current.user}
+      notify(notification)
 
   end
 
@@ -70,11 +65,7 @@ class User < ApplicationRecord
         NotificationRelayJob.perform_later(notification)
     end
     
-    broadcast_replace_later_to "notification_bell",
-                                target:"#{ notification.recipient.id}_notification_bell_icon",
-                                partial:"shared/bellnotification",
-                                locals: {current_user: Current.user}
-   
+    notify(notification)
     
     public_target="tweet_#{tweet.id}_public_likes"
     broadcast_replace_later_to "public_likes",
