@@ -10,7 +10,13 @@
       <% tweet.errors.full_messages_for(:body).each do |message| %>
         <div><%= message %></div>
       <% end %>
+      <div class="tweet_form_footer" style="display:flex;justify-content:space-between">
       <%= form.submit "Tweet", id:"create_tweet",class:"tweet_button mt-3"%>
+      <div class="field mb-3 custom-file">
+        <%= form.label :tweet_image,class:"custom-file-label" %><br />
+        <%= form.file_field :tweet_image, autofocus: true, class:"custom-file-input;padding-top:15px" %>
+      </div> 
+      </div>
     </div>
   </div>
 <% end %>

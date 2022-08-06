@@ -16,6 +16,9 @@
       <div class=post_headerDescription>
         <p> <%=comment.body%></p>
       </div>
+       <%if !comment.comment_image.byte_size.nil?%>
+          <%= image_tag comment.comment_image,style:"border-radius:0"%>
+        <%end%>
     </div>
     <div class="post_footer">
       <div class="likeOption"> 

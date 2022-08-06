@@ -17,6 +17,9 @@
         <div class=post_headerDescription>
           <p> <%=tweet.body%></p>
         </div>
+        <%if !tweet.tweet_image.byte_size.nil?%>
+          <%= image_tag tweet.tweet_image,style:"border-radius:0"%>
+        <%end%>
       </div>
       <div class="post_footer">
         <div class="likeOption">

@@ -23,7 +23,7 @@
         <%= render 'comments/form' %>
       </div>
     <%= turbo_frame_tag "comments" do%> 
-      <div class="comments_body">
+      <div class="comments_body" style="width:100%">
         <%if @tweet.comments.length > 1 %>
           <%= render @tweet.comments %>
         <%end%>

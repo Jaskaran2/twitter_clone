@@ -9,12 +9,9 @@ class Tweet < ApplicationRecord
 
   validates :body,presence: true,unless: :tweet_id
 
-    # after_create_commit {broadcast_replace_later_to "notification_bell",
-    #                                               target:"#{ Current.user.notifications.first.actor.id}_notification_bell_icon",
-    #                                               partial:"shared/bellnotification",
-    #                                               locals: {current_user: Current.user}
-    #                                             }
-  
+
+  has_one_attached :tweet_image
+
 
   def tweet_type
     if tweet_id?

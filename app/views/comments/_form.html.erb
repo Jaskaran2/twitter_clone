@@ -2,8 +2,11 @@
 
     <div class="commentBox">
             <div class="commentBox_input">
-            <%= form.text_area :body,placeholder: "Reply" %><br>
-            <%= form.submit "Reply",class:"comment_button"%>
+            <%= form.text_area :body,placeholder: "Reply" ,style:"min-width:170px"%><br>
+            <div class="field mb-3 custom-file"  style="align-items:center">
+             <%= form.file_field :comment_image, autofocus: true, class:"custom-file-input;padding-top:15px" %>
+              <%= form.submit "Reply",class:"comment_button",style:"margin-bottom:10px"%>
+            </div> 
         </div>
     </div>
 
