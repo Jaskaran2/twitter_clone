@@ -1,0 +1,10 @@
+.profile_page{
+    display:flex;
+}
+#followers{
+  flex:0.35
+}
+
+#followings{
+  flex:0.35;
+}

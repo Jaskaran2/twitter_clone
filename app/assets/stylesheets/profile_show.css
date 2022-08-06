@@ -46,3 +46,10 @@ h3.follow_unfollow_button{
     display:flex;
     align-items:center;
 }
+
+
+#friendship_button{
+    margin-left: 2rem;
+    justify-content: flex-start;
+
+}

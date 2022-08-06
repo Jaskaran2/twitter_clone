@@ -1,17 +1,12 @@
 class TweetsController<ApplicationController
 
-    before_action :authenticate_user!, except:[:index,:show]
+    before_action :authenticate_user!
     skip_before_action :verify_authenticity_token
     include NotificationHelper
 
     def index
         @tweets = Tweet.all.order("created_at DESC")
-        @user_gid=current_user.to_gid_param if current_user
-        if current_user.nil?
-            redirect_to new_user_session_path,notice: "You first need to sign in!!"
-        else
         @tweet = current_user.tweets.new
-        end        
     end
 
     def show
