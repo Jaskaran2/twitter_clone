@@ -17,9 +17,9 @@ class CommentsController<ApplicationController
         flash[:error]="Wrong inputs!! Something is missing"
         render :index
         end
-    end
+      end
     
-    notify(notification)
+      notify(notification)
      # redirect_to tweet_path(@tweet) 
     end
   
@@ -38,13 +38,27 @@ class CommentsController<ApplicationController
       respond_to do |format|
         format.turbo_stream
       end
-  
-      #redirect_to tweet_path(@tweet)
     end
+
+    def recomment
+      
+      @tweet = Tweet.find(params[:tweet_id])
+      @comment = @tweet.comments.find(params[:id])
+
+      @recomment=current_user.comments.new(comment_id:@comment.id,user_id:current_user.id,tweet_id:@comment.tweet_id)
+      
+      respond_to do |format|
+          if @recomment.save
+              format.turbo_stream
+          else
+              format.html{redirect_back fallback_location:@tweet,alert:"Something went wrong while retweeting"}
+          end
+      end
+  end
     private
 
     def comment_params
-      params.require(:comment).permit(:body,:comment_image)
+      params.require(:comment).permit(:body,:comment_image,:comment_id)
     end
   
 end

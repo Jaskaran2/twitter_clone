@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   
   resources :tweets, :except =>[:edit] do
-    resources :comments
+    resources :comments, :except =>[:edit] do
+      member do
+        post :recomment
+        get :recomment
+      end
+    end
     member do
       post :retweet
       get :retweet

@@ -1,11 +1,3 @@
-<script>
-  // $(".sidebarOption_notification").click(function(){
-  //     $.ajax("/notifications/mark_as_read",{
-  //         dataType: "json",
-  //         type: "POST"
-  //     })
-  // })
-</script>
 <%= turbo_stream_from "notification_bell" %>
 <div class="sidebar">
   <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>

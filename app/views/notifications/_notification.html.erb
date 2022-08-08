@@ -1,6 +1,6 @@
                 
 <%#binding.pry%>
-<%notifications.each do |notification|%>
+<% notifications.each do |notification| %>
 <div class="wrapper" id="Notification_<%= notification.id %>">
   <% if !notification.actor.profile_image.byte_size.nil? %>
     <%= image_tag notification.actor.profile_image,class:"notification_image"%>

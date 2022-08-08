@@ -1,15 +1,17 @@
 
 <div class="notifications">
 <%= render "shared/sidebar",current_user:Current.user %>
-<div class="notification_message">
-  <% if @notifications.count>0 %>
-    <%= turbo_stream_from "notification_page" %>
-    <%= turbo_frame_tag  "notification_page_#{Current.user.id}" do%>
-      <%= render "notification",notifications:@notifications,user_id:Current.user.id %>
+<%= turbo_stream_from "notification_page" %>
+  <div class="notification_message">
+    <% if @notifications.count>0 %>
+      <div  id="notification_page_<%=Current.user.id%>">
+        <%= render "notification",notifications:@notifications,user_id:Current.user.id %>
+      </div>
+    <% else %>
+      <div  id="notification_page_<%=Current.user.id%>">
+        <p>You have no new notifications</p>
+      </div>
     <% end %>
-  <% else %>
-    <p>You have no new notifications</p>
-  <% end %>
   </div>
 </div>
 
