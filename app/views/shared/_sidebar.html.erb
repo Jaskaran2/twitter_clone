@@ -1,3 +1,12 @@
+<script>
+$("#mark_notification_as_read").click(function(){
+    $.ajax("/notifications/mark_as_read",{
+        dataType: "json",
+        type: "POST"
+    })
+})
+</script>
+
 <%= turbo_stream_from "notification_bell" %>
 <div class="sidebar">
   <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>
@@ -13,7 +22,7 @@
     <%= turbo_frame_tag "#{current_user.id}_notification_bell_icon" do %>
       <div id="user_notification_bell">
         <i class="fa-solid fa-bell" style="color:black" id="notified_bell"></i>
-        <%= link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:black",data:{"turbo-frame": "_top"} %>
+        <%= link_to "Notification", notifications_path,class:"sidebarOption_notification",id:"mark_notification_as_read",style:"color:black",data:{"turbo-frame": "_top"} %>
       </div>
     <% end %>
   </div>

@@ -3,6 +3,7 @@ class TweetsController<ApplicationController
     before_action :authenticate_user!
     skip_before_action :verify_authenticity_token
     include NotificationHelper
+    include BroadcastTweetHelper
 
     def index
         @tweets = Tweet.all.order("created_at DESC")
@@ -34,6 +35,7 @@ class TweetsController<ApplicationController
             render :index
             end
         end
+        broadcastTweet(@tweet)
     end
 
     def destroy
@@ -68,6 +70,8 @@ class TweetsController<ApplicationController
                 format.html{redirect_back fallback_location:@tweet,alert:"Something went wrong while retweeting"}
             end
         end
+
+        broadcastRetweet(@retweet)
         notify(notification)
     end
 

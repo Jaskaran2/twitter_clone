@@ -5,7 +5,7 @@
       <% if !comment.user.profile_image.byte_size.nil? %>
         <%= image_tag comment.user.profile_image,class:"post_image" %>
       <% else %>
-        <%= gravatar_image_tag(comment.user.email, size:64,alt:Current.user.name,class:"post_image") %>
+        <%= gravatar_image_tag(comment.user.email, size:64,alt:"No img",class:"post_image") %>
       <% end %>
     </div>
   <div class="post_body">

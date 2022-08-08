@@ -41,7 +41,6 @@ class CommentsController<ApplicationController
     end
 
     def recomment
-      
       @tweet = Tweet.find(params[:tweet_id])
       @comment = @tweet.comments.find(params[:id])
 
@@ -53,8 +52,10 @@ class CommentsController<ApplicationController
           else
               format.html{redirect_back fallback_location:@tweet,alert:"Something went wrong while retweeting"}
           end
-      end
-  end
+        end
+    end
+
+    
     private
 
     def comment_params

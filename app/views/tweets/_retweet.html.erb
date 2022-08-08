@@ -1,11 +1,13 @@
 <% like_status||= local_assigns[:like_status] %>
+<% userId||= local_assigns[:userId] %>
+<%= turbo_stream_from "public_tweets" %>
 <%= turbo_frame_tag "tweet_#{tweet.id}" do%>
   <div class="post">
     <div class="post_avatar">
       <% if !tweet.tweet.user.profile_image.byte_size.nil? %>
         <%= image_tag tweet.tweet.user.profile_image,class:"post_image" %>
       <% else %>
-        <%= gravatar_image_tag(tweet.tweet.user.email, size:64,alt:Current.user.name,class:"post_image") %>
+        <%= gravatar_image_tag(tweet.tweet.user.email, size:64,alt:"No img",class:"post_image") %>
       <% end %>
     </div>
     <div class="post_body">
@@ -33,7 +35,7 @@
           <span><%= button_to "",retweet_tweet_path(tweet.tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"} %></span>
         </div>
         <div class="deleteOption">
-          <%= render "tweets/delete_tweet" ,tweet:tweet %>
+          <%= render "tweets/delete_tweet" ,tweet:tweet,id:userId  %>
         </div>
       </div>
     </div>
