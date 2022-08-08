@@ -14,14 +14,6 @@ class TweetsController<ApplicationController
        @tweet= Tweet.find(params[:id])
     end
 
-    def new
-        if current_user.nil?
-            redirect_to new_user_session_path,notice: "You first need to sign in!!"
-        else
-        @tweet = current_user.tweets.new
-        end
-      
-    end
     
     def create
         @tweet =current_user.tweets.new(tweet_params)
@@ -41,7 +33,6 @@ class TweetsController<ApplicationController
     def destroy
         @tweet = current_user.tweets.find(params[:id])
         @tweet.destroy
-
         redirect_to profile_path, status: 303    
     end
 

@@ -1,10 +1,10 @@
 <script>
-$("#mark_notification_as_read").click(function(){
-    $.ajax("/notifications/mark_as_read",{
-        dataType: "json",
-        type: "POST"
-    })
-})
+// $("#mark_notification_as_read").click(function(){
+//     $.ajax("/notifications/mark_as_read",{
+//         dataType: "json",
+//         type: "POST"
+//     })
+// })
 </script>
 
 <%= turbo_stream_from "notification_bell" %>

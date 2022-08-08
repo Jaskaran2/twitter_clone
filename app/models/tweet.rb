@@ -12,6 +12,7 @@ class Tweet < ApplicationRecord
 
   has_one_attached :tweet_image
 
+  after_destroy_commit{broadcast_remove_to "public_tweets"}
 
   def tweet_type
     if tweet_id?
