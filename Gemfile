@@ -12,7 +12,7 @@ gem 'gravatar_image_tag'
 
 gem 'image_processing', '~> 1.2'
 
-
+gem 'erb-formatter'
 gem 'turbolinks', '~> 5.2.0'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]

@@ -1,4 +1,4 @@
-<%=turbo_frame_tag "friendship_button" do%>
-    <%=button_to "Follow",profile_friendships_path(profile),class:"btn btn-primary ms-3"%></button>
+<%= turbo_frame_tag "friendship_button" do %>
+    <%= button_to "Follow",profile_friendships_path(profile),class:"btn btn-primary ms-3" %></button>
      <%= render "profiles/follow_unfollow_count", profile:profile %>
-<%end%>
+<% end %>

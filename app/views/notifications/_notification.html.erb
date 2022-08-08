@@ -1,33 +1,39 @@
                 
+<%#binding.pry%>
 <%notifications.each do |notification|%>
-<div class="wrapper">
-  <%if !notification.actor.profile_image.byte_size.nil?%>
-        <%= image_tag notification.actor.profile_image,class:"notification_image"%>
-      <%else%>
-        <%=gravatar_image_tag(notification.actor.email, size:64,alt:notification.actor.name,class:"notification_image")%>
-      <%end%>
+<div class="wrapper" id="Notification_<%= notification.id %>">
+  <% if !notification.actor.profile_image.byte_size.nil? %>
+    <%= image_tag notification.actor.profile_image,class:"notification_image"%>
+  <% else %>
+    <%=gravatar_image_tag(notification.actor.email, size:64,alt:notification.actor.name,class:"notification_image")%>
+  <% end %>
   <article>
-      <%if notification.action=="comment"%>
-      <h4>@<%=link_to "#{notification.actor.username}",profile_path(notification.actor)%></h4>
-      <p><%="#{notification.actor.username} commented on your post"%></p>
-    <%elsif notification.action=="like"%>
-       <h4>@<%=link_to "#{notification.actor.username}",profile_path(notification.actor)%></h4>
-      <p><%="#{notification.actor.username} liked on your post"%></p>
-    <%elsif notification.action=="unlike"%>
-       <h4>@<%=link_to "#{notification.actor.username}",profile_path(notification.actor)%></h4>
-      <p><%="#{notification.actor.username} unliked on your post"%></p>
-       <%elsif notification.action=="followed"%>
-       <h4>@<%=link_to "#{notification.actor.username}",profile_path(notification.actor)%></h4>
-      <p><%="#{notification.actor.username} started following you"%></p>
-    <%elsif notification.action=="unfollowed"%>
-      <h4>@<%=link_to "#{notification.actor.username}",profile_path(notification.actor)%></h4>
-      <p><%="#{notification.actor.username} unfollowed you"%></p>
-      <%elsif notification.action=="retweet"%>
-      <h4>@<%=link_to "#{notification.actor.username}",profile_path(notification.actor)%></h4>
-      <p><%="#{notification.actor.username} retweeted on your post"%></p>
-    <%end%>
+      <% if notification.action=="comment" %>
+      <h4>@<%=link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"}%></h4>
+      <p><%= "#{notification.actor.username} commented on your post" %></p>
+    <% elsif notification.action=="like" %>
+       <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
+      <p><%= "#{notification.actor.username} liked on your post" %></p>
+    <% elsif notification.action=="unlike" %>
+       <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
+      <p><%= "#{notification.actor.username} unliked on your post" %></p>
+       <% elsif notification.action=="followed" %>
+       <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
+      <p><%= "#{notification.actor.username} started following you" %></p>
+    <% elsif notification.action=="unfollowed" %>
+      <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
+      <p><%= "#{notification.actor.username} unfollowed you" %></p>
+    <% elsif notification.action=="unliked comment" %>
+      <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
+      <p><%= "#{notification.actor.username} unliked your comment" %></p>
+    <% elsif notification.action=="liked comment" %>
+      <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
+      <p><%= "#{notification.actor.username} liked your comment" %></p>
+    <% elsif notification.action=="retweet" %>
+      <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
+      <p><%= "#{notification.actor.username} retweeted on your post" %></p>
+    <% end %>
     </p>
   </article>
   </div>
-  <%end%>
- 
+ <% end %> 

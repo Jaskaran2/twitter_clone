@@ -1,43 +1,43 @@
 <div class="profile_page">
-  <%=render "shared/sidebar",current_user:Current.user%>
+  <%= render "shared/sidebar",current_user:Current.user %>
   <div id="followers">
     <h2>Followers</h2>
-    <%@profile.followers.each do |f|%>
+    <% @profile.followers.each do |f| %>
       <div class="post_avatar">
-        <%if !f.profile_image.byte_size.nil?%>
-          <%= image_tag f.profile_image,class:"post_image"%>
-        <%else%>
-          <%=gravatar_image_tag(f.email, size:64,alt:f.name,class:"post_image")%>
-        <%end%>
+        <% if !f.profile_image.byte_size.nil? %>
+          <%= image_tag f.profile_image,class:"post_image" %>
+        <% else %>
+          <%= gravatar_image_tag(f.email, size:64,alt:f.name,class:"post_image") %>
+        <% end %>
       </div>
       <div class="post_body">
         <div class="post_header">
           <div class="post_headerText">
-            <h3>User name- <%=link_to f.username, profile_path(f.id)%></h3>
+            <h3>User name- <%= link_to f.username, profile_path(f.id) %></h3>
             <h3>Email- <%= f.email %></h3>
           </div>
         </div>
-      <%end%>
+      <% end %>
     </div>
   </div>
   <div id="followings">
     <h2>Followings</h2>
-    <%@profile.following.each do |f|%>
+    <% @profile.following.each do |f| %>
       <div class="post_avatar">
-        <%if !f.profile_image.byte_size.nil?%>
-          <%= image_tag f.profile_image,class:"post_image"%>
-        <%else%>
-          <%=gravatar_image_tag(f.email, size:64,alt:f.name,class:"post_image")%>
-        <%end%>
+        <% if !f.profile_image.byte_size.nil? %>
+          <%= image_tag f.profile_image,class:"post_image" %>
+        <% else %>
+          <%= gravatar_image_tag(f.email, size:64,alt:f.name,class:"post_image") %>
+        <% end %>
       </div>
       <div class="post_body">
         <div class="post_header">
           <div class="post_headerText">
-            <h3>User name- <%=link_to f.username, profile_path(f.id)%></h3>
+            <h3>User name- <%= link_to f.username, profile_path(f.id) %></h3>
             <h3>Email- <%= f.email %></h3>
           </div>
         </div>
-      <%end%>
+      <% end %>
     </div>
   </div>
 </div>

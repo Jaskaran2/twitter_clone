@@ -1,33 +1,37 @@
 <div class="app">
-  <%=render "shared/sidebar",current_user:Current.user%>
+  <%= render "shared/sidebar",current_user:Current.user %>
   <div class="post single_post">
      <div class="post_avatar">
-      <%if !@tweet.user.profile_image.byte_size.nil?%>
-        <%= image_tag @tweet.user.profile_image,class:"post_image"%>
-      <%else%>
-        <%=gravatar_image_tag(@tweet.user.email, size:64,alt:Current.user.name,class:"post_image")%>
-      <%end%>
+      <% if !@tweet.user.profile_image.byte_size.nil? %>
+        <%= image_tag @tweet.user.profile_image,class:"post_image" %>
+      <% else %>
+        <%= gravatar_image_tag(@tweet.user.email, size:64,alt:Current.user.name,class:"post_image") %>
+      <% end %>
     </div>
     <div class="post_body">
       <div class="post_header">
         <div class="post_headerText">
-          <h3><%=@tweet.user.name%> <span class="post_headerSpecial"> @<%=@tweet.user.username%></span></h3>
-          <p class="post_headerTimestamp"><%= @tweet.created_at%> </p>
+          <h3><%= @tweet.user.name %> <span class="post_headerSpecial"> @<%= @tweet.user.username %></span></h3>
+          <p class="post_headerTimestamp"><%= @tweet.created_at %> </p>
         </div>
         <div class=post_headerDescription>
-          <p> <%=@tweet.body%></p>
+        <% if @tweet.tweet_id.nil? %>
+            <p> <%= @tweet.body %></p>
+        <% else %>
+            <p> <%= @tweet.tweet.body %></p>
+        <% end %>
         </div>
       </div>
      <br>
       <div class="comments_form">
         <%= render 'comments/form' %>
       </div>
-    <%= turbo_frame_tag "comments" do%> 
+    <%= turbo_frame_tag "comments" do %> 
       <div class="comments_body" style="width:100%">
-        <%if @tweet.comments.length > 1 %>
+        <% if @tweet.comments.length > 1 %>
           <%= render @tweet.comments %>
-        <%end%>
+        <% end %>
       </div>
-      <%end%>
+      <% end %>
     </div>
   </div>

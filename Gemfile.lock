@@ -96,6 +96,7 @@ GEM
       responders
       warden (~> 1.2.3)
     digest (3.1.0)
+    erb-formatter (0.3.0)
     erubi (1.10.0)
     ffi (1.15.5)
     ffi (1.15.5-x64-mingw-ucrt)
@@ -260,6 +261,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  erb-formatter
   font-awesome-rails
   gravatar_image_tag
   hotwire-rails

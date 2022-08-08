@@ -1,7 +1,7 @@
 <%#binding.pry%>
-<%=turbo_frame_tag "#{current_user.id}_notification_bell_icon" do%>
+<%= turbo_frame_tag "#{current_user.id}_notification_bell_icon" do %>
   <div id="user_notification_bell">
     <i class="fa-solid fa-bell" style="color:red" id="notified_bell"></i>
-    <%=link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:red",data:{"turbo-frame": "_top"}%>
+    <%= link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:red",data:{"turbo-frame": "_top"} %>
   </div>
-<%end%>
+<% end %>

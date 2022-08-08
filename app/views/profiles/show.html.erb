@@ -1,39 +1,39 @@
 <div class="profile">
-  <%=render "shared/sidebar",current_user:Current.user%>
+  <%= render "shared/sidebar",current_user:Current.user %>
   <div class="profile_body">
     <div class="profile_header">
       
       <div class="profile_avatar">
-        <%if !@profile.profile_image.byte_size.nil?%>
+        <% if !@profile.profile_image.byte_size.nil? %>
           <%= image_tag @profile.profile_image,class:"profile_image"%>
-        <%else%>
-          <%=gravatar_image_tag(@profile.email, size:64,alt:current_user.name,class:"profile_image")%>
-        <%end%>
+        <% else %>
+          <%= gravatar_image_tag(@profile.email, size:64,alt:current_user.name,class:"profile_image") %>
+        <% end %>
       </div>
       
       <div class="post_headerText">
         <h3 class="follow_unfollow_button">
           <%= @profile.name  %>
-          <% if !(@profile.id==Current.user.id)%>
-            <%if Current.user.following?(@profile)%>
-              <%= render "unfollow",profile:@profile%>
+          <% if !(@profile.id==Current.user.id) %>
+            <% if Current.user.following?(@profile) %>
+              <%= render "unfollow",profile:@profile %>
           <%elsif%>
-            <%= render "follow",profile:@profile%>
-        <%end%>
-      <%elsif%>
-        <%=link_to "" , edit_user_registration_path,class:"fa-solid fa-gear ms-4"%>
-      <%end%>
+            <%= render "follow",profile:@profile %>
+        <% end %>
+      <% elsif %>
+        <%= link_to "" , edit_user_registration_path,class:"fa-solid fa-gear ms-4" %>
+      <% end %>
     </h3>
-    <% if (@profile.id==Current.user.id)%>
+    <% if (@profile.id==Current.user.id) %>
      <%= render "profiles/follow_unfollow_count", profile:@profile %>
-    <%end%>
+    <% end %>
 
   </div>
 </div>
 
 <div class="profile_body">
-  <%@profile.tweets.all.each do |tweet|%>
-    <%=render "tweets/tweet", tweet:tweet%>
-  <%end%>
+  <% @profile.tweets.all.each do |tweet| %>
+    <%= render "tweets/tweet", tweet:tweet %>
+  <% end %>
 </div>
 

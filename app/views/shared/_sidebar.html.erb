@@ -1,29 +1,29 @@
 <script>
-  $(".sidebarOption_notification").click(function(){
-      $.ajax("/notifications/mark_as_read",{
-          dataType: "json",
-          type: "POST"
-      })
-  })
+  // $(".sidebarOption_notification").click(function(){
+  //     $.ajax("/notifications/mark_as_read",{
+  //         dataType: "json",
+  //         type: "POST"
+  //     })
+  // })
 </script>
 <%= turbo_stream_from "notification_bell" %>
 <div class="sidebar">
   <i class="fa-brands fa-twitter sidebar_twitterIcon"></i>
   <div class="sidebarOption active">
     <i class="fa-solid fa-house-user"></i>
-    <%=link_to "Home",root_path,class:"sidebarOption_home",style:"color:black"%>
+    <%= link_to "Home",root_path,class:"sidebarOption_home",style:"color:black" %>
   </div>
   <div class="sidebarOption">
     <i class="fa-solid fa-user"></i>
-    <%=link_to "Profile", profile_path(current_user.id),class:"sidebarOption_profile",style:"color:black"%>
+    <%= link_to "Profile", profile_path(current_user.id),class:"sidebarOption_profile",style:"color:black" %>
   </div>
   <div class="sidebarOption" >
-    <%=turbo_frame_tag "#{current_user.id}_notification_bell_icon" do%>
+    <%= turbo_frame_tag "#{current_user.id}_notification_bell_icon" do %>
       <div id="user_notification_bell">
         <i class="fa-solid fa-bell" style="color:black" id="notified_bell"></i>
-        <%=link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:black",data:{"turbo-frame": "_top"}%>
+        <%= link_to "Notification", notifications_path,class:"sidebarOption_notification",style:"color:black",data:{"turbo-frame": "_top"} %>
       </div>
-    <%end%>
+    <% end %>
   </div>
   <div class="sidebarOption">
     <i class="fa-solid fa-right-from-bracket"></i>
