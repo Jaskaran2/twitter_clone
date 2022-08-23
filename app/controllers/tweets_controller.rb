@@ -23,8 +23,8 @@ class TweetsController<ApplicationController
                 format.turbo_stream
             #   redirect_to root_path,notice: "Post created"
             else
-            flash[:error]="Wrong inputs!! Something is missing"
-            render :index
+                flash[:error]="Wrong inputs!! Something is missing"
+                format.html {render :index}
             end
         end
         broadcastTweet(@tweet)
@@ -71,9 +71,11 @@ class TweetsController<ApplicationController
     end
     
     private
-
+    
+    
     def tweet_params
+      #binding.pry
       params.require(:tweet).permit(:body,:tweet_id,:tweet_image)
     end
-
+    
 end

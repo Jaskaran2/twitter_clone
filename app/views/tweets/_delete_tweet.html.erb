@@ -1,4 +1,5 @@
-<% if tweet.user.id == id %>
+<%#binding.pry%>
+<% if tweet.user.id %>
   <%= link_to "", tweet_path(tweet), data: {
     turbo_method: :delete,
     turbo_confirm: "Are you sure?"   

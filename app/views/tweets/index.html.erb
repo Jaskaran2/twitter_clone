@@ -1,6 +1,6 @@
 <% like_status||= local_assigns[:like_status] %>
 <div class="app">
-  <%= render "shared/sidebar",current_user: Current.user  %>
+  <%= render "shared/sidebar",current_user: Current.user %>
   <div class="feed">
     <div class="feed_header">
       <h2>Home</h2>
@@ -9,7 +9,7 @@
     <%= turbo_stream_from "public_likes" %>
     <%= turbo_frame_tag "tweets" do %>
       <% @tweets.all.each do |tweet| %>
-        <%= render "tweets/#{tweet.tweet_type.parameterize}", tweet:tweet, like_status: Current.user.liked?(tweet), userId:Current.user.id %>
+        <%= render "tweets/#{tweet.tweet_type.parameterize}", tweet:tweet, like_status: Current.user.liked?(tweet) %>
       <% end %>
     <% end %>
   </div>

@@ -18,7 +18,7 @@
     <i class="fa-solid fa-user"></i>
     <%= link_to "Profile", profile_path(current_user.id),class:"sidebarOption_profile",style:"color:black" %>
   </div>
-  <div class="sidebarOption" >
+  <div class="sidebarOption" data-controller="read" >
     <%= turbo_frame_tag "#{current_user.id}_notification_bell_icon" do %>
       <div id="user_notification_bell">
         <i class="fa-solid fa-bell" style="color:black" id="notified_bell"></i>

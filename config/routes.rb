@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   root to: "tweets#index"
   devise_for :users, :controllers =>{registrations:'registrations'}
-  get 'home/index'
-
-  mount ActionCable.server => '/cable'
   
   resources :tweets, :except =>[:edit] do
     resources :comments, :except =>[:edit] do
@@ -19,11 +16,6 @@ Rails.application.routes.draw do
     end
   end
 
-  post 'like/:id',to: "tweets#like",as: "like_tweet"
-  get  'like/:id',to: "tweets#like_button",as: "like_button"
-
-  post '/tweets/:tweet_id/comments/:id',to: "comments#like_comment",as: "like_comment"
-  
   resources :notifications do
     collection do
       post :mark_as_read
@@ -36,6 +28,17 @@ Rails.application.routes.draw do
       get :friendlist
     end
   end
+
+  post 'like/:id',to: "tweets#like",as: "like_tweet"
+  get  'like/:id',to: "tweets#like_button",as: "like_button"
+
+  post '/tweets/:tweet_id/comments/:id',to: "comments#like_comment",as: "like_comment"
+
+  # scope module: 'admin' do
+  #   resources :articles, :comments
+  # end
+  # Ex:- scope :active, -> {where(:active => true)}
+  
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

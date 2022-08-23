@@ -12,13 +12,33 @@ class Tweet < ApplicationRecord
 
   has_one_attached :tweet_image
 
+  
+
   after_destroy_commit{broadcast_remove_to "public_tweets"}
 
-  def tweet_type
+  # around_create :test
+  # before_validation :hello
+
+  # def test
+  #   puts "Before yield"
+  #   yield
+  #   puts "after yield"
+  # end
+
+  # def hello
+  #   puts "Testing before validation"
+  # end
+
+  def tweet_type 
+    
     if tweet_id?
       "retweet"
+    elsif tweet_id? and body?
+      "reply"
     else
       "tweet"
     end
+    
   end
+
 end

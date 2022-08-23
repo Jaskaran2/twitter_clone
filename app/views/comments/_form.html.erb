@@ -1,5 +1,5 @@
 <%= form_with model: [ @tweet, @tweet.comments.build ] ,data:{controller:"reset-form",action:"turbo:submit-end->reset-form#reset"} do |form| %>
-
+<% #binding.pry %>
     <div class="commentBox">
             <div class="commentBox_input">
             <%= form.text_area :body,placeholder: "Reply" ,style:"min-width:170px"%><br>

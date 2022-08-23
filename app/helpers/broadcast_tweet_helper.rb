@@ -7,8 +7,8 @@ module BroadcastTweetHelper
         locals: 
         {
           tweet:tweet, 
-          like_status: Current.user.liked?(tweet), 
-          userId:Current.user.id
+          like_status: Current.user.liked?(tweet)
+
         }
     end
 
@@ -19,8 +19,7 @@ module BroadcastTweetHelper
         locals: 
         {
         tweet:retweet, 
-        like_status: Current.user.liked?(retweet), 
-        userId:Current.user.id
+        like_status: Current.user.liked?(retweet)
         }
     end
     
