@@ -15,21 +15,25 @@
           <p class="post_headerTimestamp"><%= @tweet.created_at %> </p>
         </div>
         <div class=post_headerDescription>
-        <% if @tweet.tweet_id.nil? %>
+         <% if @tweet.parent_tweet_id.nil? %>
             <p> <%= @tweet.body %></p>
-        <% else %>
-            <p> <%= @tweet.tweet.body %></p>
+        <% elsif @tweet.parent_tweet_id? and @tweet.body? %>
+            <p> <%= @tweet.body %></p>
+        <% elsif @tweet.parent_tweet_id? and !@tweet.body? %>
+            <p> <%= @tweet.parent_tweet.body %></p>
         <% end %>
         </div>
       </div>
      <br>
-      <div class="comments_form">
-        <%= render 'comments/form' %>
+  <div class="comments_form">
+        <%= render 'reply/replyform',tweet:@tweet %>
       </div>
-    <%= turbo_frame_tag "comments" do %> 
+    <%= turbo_frame_tag "reply" do %> 
       <div class="comments_body" style="width:100%">
-        <% if @tweet.comments.length > 1 %>
-          <%= render @tweet.comments %>
+        <% @replies.each do |tweet| %>
+          <% if tweet.body? %>
+            <%= render "reply/replytweet",tweet:tweet %>
+          <% end %>
         <% end %>
       </div>
       <% end %>

@@ -1,7 +1,0 @@
-<%= turbo_frame_tag "#{dom_id(comment)}_comment_likes" do %>
-  <% like_button_class = Current.user.liked_comment?(comment) ? "fa-solid fa-heart like" : "fa-solid fa-heart unlike" %>
-  <span class="post_likes_box" style="display:flex">
-    <%= button_to "",like_comment_path(id:comment.id,tweet_id:comment.tweet_id),class:like_button_class ,method: :post,data:{"turbo-frame": "_top"} %>
-    <%= pluralize(comment.likes.count,"Like") %>
-  </span>
-<% end %>

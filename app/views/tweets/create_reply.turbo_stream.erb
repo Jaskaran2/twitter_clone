@@ -1,0 +1,3 @@
+<%= turbo_stream.prepend "reply" do %>
+  <%= render "reply/replytweet", tweet:@reply, like_status: Current.user.liked?(@reply)%>
+<% end %>

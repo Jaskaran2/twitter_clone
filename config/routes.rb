@@ -3,16 +3,19 @@ Rails.application.routes.draw do
   devise_for :users, :controllers =>{registrations:'registrations'}
   
   resources :tweets, :except =>[:edit] do
-    resources :comments, :except =>[:edit] do
-      member do
-        post :recomment
-        get :recomment
-      end
-    end
+    # resources :comments, :except =>[:edit] do
+    #   member do
+    #     post :recomment
+    #     get :recomment
+    #   end
+    # end
     member do
       post :retweet
       get :retweet
       get :likeables
+      #resources :reply, :except=>[:edit,:index,:create], controller: :tweets
+      get "/reply",to:"tweets#show_reply"
+      post "/reply",to:"tweets#create_reply"
     end
   end
 
@@ -32,7 +35,7 @@ Rails.application.routes.draw do
   post 'like/:id',to: "tweets#like",as: "like_tweet"
   get  'like/:id',to: "tweets#like_button",as: "like_button"
 
-  post '/tweets/:tweet_id/comments/:id',to: "comments#like_comment",as: "like_comment"
+ # post '/tweets/:tweet_id/comments/:id',to: "comments#like_comment",as: "like_comment"
 
   # scope module: 'admin' do
   #   resources :articles, :comments

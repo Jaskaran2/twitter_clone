@@ -12,6 +12,7 @@ class TweetsController<ApplicationController
 
     def show
        @tweet= Tweet.find(params[:id])
+       @replies=Tweet.where(parent_tweet_id:params[:id]).order("created_at DESC")
     end
 
     
@@ -50,7 +51,7 @@ class TweetsController<ApplicationController
     def retweet
         @tweet= Tweet.find(params[:id])
 
-        @retweet=current_user.tweets.new(tweet_id:@tweet.id,user_id:current_user.id)
+        @retweet=current_user.tweets.new(parent_tweet_id:@tweet.id,user_id:current_user.id)
         #create notification for user
         notification= Notification.create(recipient:@tweet.user,actor:current_user,action:"retweet",notifiable:@retweet)
         NotificationRelayJob.perform_later(notification)
@@ -64,18 +65,36 @@ class TweetsController<ApplicationController
 
         broadcastRetweet(@retweet)
         notify(notification)
+        
+        #binding.pry
+        
     end
 
     def likeables     
         @tweet= Tweet.find(params[:id])
     end
+
+    def create_reply
+        @tweet = Tweet.find(params[:id])
+        @reply=current_user.tweets.create(parent_tweet_id:@tweet.id,user_id:current_user.id,body:params[:body],tweet_image: params[:tweet_image]) 
+        
+        respond_to do |format|
+          if @reply.save
+              format.turbo_stream
+          else
+              flash[:error]="Wrong inputs!! Something is missing"
+              render :index
+          end
+        end
+    end
+      
     
     private
     
     
     def tweet_params
       #binding.pry
-      params.require(:tweet).permit(:body,:tweet_id,:tweet_image)
+      params.require(:tweet).permit(:body,:tweet_image,:parent_tweet_id)
     end
     
 end

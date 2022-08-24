@@ -3,12 +3,11 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :tweets, dependent: :destroy
-  has_many :comments, dependent: :destroy
+ 
 
   has_many :likes,dependent: :destroy
   #user.liked_tweets shows tweets user has liked
   has_many :liked_tweets,through: :likes,source_type: "Tweet",source: :likeable
-  has_many :liked_comments,through: :likes,source_type: "Comment",source: :likeable
 
   has_many :active_friendships,class_name:"Friendship",foreign_key:"follower_id",dependent: :destroy
   has_many :following, through: :active_friendships,source: :followed
@@ -53,13 +52,9 @@ class User < ApplicationRecord
 
 
 
-    #like unlike comments and tweets
+    #like unlike tweets
     def liked?(tweet)
       liked_tweets.include?(tweet)
-    end
-  
-    def liked_comment?(comment)
-      liked_comments.include?(comment)
     end
   
     def like(tweet)
@@ -82,28 +77,5 @@ class User < ApplicationRecord
                                   partial:"likes/like_count",
                                   locals:{tweet:tweet}
     end
-  
-  
-    def like_comment(comment)
-      if liked_comments.include?(comment)
-        liked_comments.destroy(comment)
-
-        notification=Notification.create(recipient:comment.user,actor:Current.user,action:"unliked comment",notifiable:comment)
-        NotificationRelayJob.perform_later(notification)
-      else
-        liked_comments<<comment
-
-        notification=Notification.create(recipient:comment.user,actor:Current.user,action:"liked comment",notifiable:comment)
-        NotificationRelayJob.perform_later(notification)
-      end
-
-        notify(notification)
-    end
-
-
-
-
-  
-
 
 end

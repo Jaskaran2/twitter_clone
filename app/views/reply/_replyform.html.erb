@@ -1,0 +1,17 @@
+<%= form_with url: { action: "create_reply",controller: "tweets" }, method: :post,data:{controller:"reset-form",action:"turbo:submit-end->reset-form#reset"} do |form| %>
+  <div class="tweetBox">
+    <div class="tweetBox_input">
+      <%= form.text_area :body, placeholder: "Reply" %><br>
+      <% tweet.errors.full_messages_for(:body).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+      <div class="tweet_form_footer" style="display:flex;justify-content:space-between">
+      <%= form.submit "Reply", id:"create_tweet",class:"tweet_button mt-3",mothod: :post%>
+      <div class="field mb-3 custom-file">
+        <%= form.label "Tweet image (optional)",class:"custom-file-label" %><br />
+        <%= form.file_field :tweet_image, class:"custom-file-input;padding-top:15px" %>
+      </div> 
+      </div>
+    </div>
+  </div>
+<% end %>
