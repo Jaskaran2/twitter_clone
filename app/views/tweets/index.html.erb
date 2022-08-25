@@ -8,8 +8,8 @@
     <%= render "form", tweet: @tweet %>
     <%= turbo_stream_from "public_likes" %>
     <%= turbo_frame_tag "tweets" do %>
-      <% @tweets.all.each do |tweet| %>
-        <%= render "tweets/#{tweet.tweet_type.parameterize}", tweet:tweet, like_status: Current.user.liked?(tweet) %>
+      <% @tweets.each do |tweet| %>
+        <%= render "tweets/#{tweet.tweet_type}", tweet:tweet, like_status: Current.user.liked?(tweet) %>
       <% end %>
     <% end %>
   </div>

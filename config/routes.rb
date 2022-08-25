@@ -3,19 +3,10 @@ Rails.application.routes.draw do
   devise_for :users, :controllers =>{registrations:'registrations'}
   
   resources :tweets, :except =>[:edit] do
-    # resources :comments, :except =>[:edit] do
-    #   member do
-    #     post :recomment
-    #     get :recomment
-    #   end
-    # end
     member do
       post :retweet
-      get :retweet
       get :likeables
-      #resources :reply, :except=>[:edit,:index,:create], controller: :tweets
-      get "/reply",to:"tweets#show_reply"
-      post "/reply",to:"tweets#create_reply"
+      post :reply
     end
   end
 

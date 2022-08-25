@@ -22,7 +22,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   
-  
+  #refactor follow 
   #follow/unfollow
     def follow(user)
       active_friendships.create(followed_id: user.id)
@@ -57,6 +57,8 @@ class User < ApplicationRecord
       liked_tweets.include?(tweet)
     end
   
+    #use callback for like
+    #diff methods for like and unlike
     def like(tweet)
       if liked_tweets.include?(tweet)
         liked_tweets.destroy(tweet)

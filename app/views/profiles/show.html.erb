@@ -32,7 +32,7 @@
 </div>
 
 <div class="profile_body">
-  <% @profile.tweets.all.order("created_at DESC").each do |tweet| %>
+  <% @user_tweets.each do |tweet| %>
     <%= render "tweets/#{tweet.tweet_type.parameterize}", tweet:tweet %>
   <% end %>
 </div>

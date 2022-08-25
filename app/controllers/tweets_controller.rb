@@ -6,18 +6,18 @@ class TweetsController<ApplicationController
     include BroadcastTweetHelper
 
     def index
-        @tweets = Tweet.all.order("created_at DESC")
+        @tweets = Tweet.followers_tweets
         @tweet = current_user.tweets.new
     end
 
     def show
-       @tweet= Tweet.find(params[:id])
-       @replies=Tweet.where(parent_tweet_id:params[:id]).order("created_at DESC")
+       @tweet = Tweet.find(params[:id])
+       @replies = Tweet.get_replies(params[:id])
     end
 
     
     def create
-        @tweet =current_user.tweets.new(tweet_params)
+        @tweet = current_user.tweets.new(tweet_params)
         
         respond_to do |format|
             if @tweet.save
@@ -34,11 +34,11 @@ class TweetsController<ApplicationController
     def destroy
         @tweet = current_user.tweets.find(params[:id])
         @tweet.destroy
-        redirect_to profile_path, status: 303    
+        redirect_to profile_path, status: 303 #check staus: :no_content    
     end
 
     def like
-        @tweet= Tweet.find(params[:id])
+        @tweet = Tweet.find(params[:id])
         current_user.like(@tweet)
     end
 
@@ -49,11 +49,12 @@ class TweetsController<ApplicationController
     end
 
     def retweet
-        @tweet= Tweet.find(params[:id])
-
-        @retweet=current_user.tweets.new(parent_tweet_id:@tweet.id,user_id:current_user.id)
+        @tweet = Tweet.find(params[:id])
+        
+        
+        @retweet = current_user.tweets.new(parent_tweet_id:@tweet.id,tweet_type: "retweet")
         #create notification for user
-        notification= Notification.create(recipient:@tweet.user,actor:current_user,action:"retweet",notifiable:@retweet)
+        notification = Notification.create(recipient:@tweet.user,actor:current_user,action:"retweet",notifiable:@retweet)
         NotificationRelayJob.perform_later(notification)
         respond_to do |format|
             if @retweet.save
@@ -74,9 +75,9 @@ class TweetsController<ApplicationController
         @tweet= Tweet.find(params[:id])
     end
 
-    def create_reply
+    def reply
         @tweet = Tweet.find(params[:id])
-        @reply=current_user.tweets.create(parent_tweet_id:@tweet.id,user_id:current_user.id,body:params[:body],tweet_image: params[:tweet_image]) 
+        @reply = current_user.tweets.create(parent_tweet_id:@tweet.id,body:params[:body],tweet_image: params[:tweet_image],tweet_type: "reply") 
         
         respond_to do |format|
           if @reply.save
@@ -93,7 +94,6 @@ class TweetsController<ApplicationController
     
     
     def tweet_params
-      #binding.pry
       params.require(:tweet).permit(:body,:tweet_image,:parent_tweet_id)
     end
     
