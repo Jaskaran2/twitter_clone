@@ -1,4 +1,7 @@
 class Tweet < ApplicationRecord
+  include NotificationHelper
+  include BroadcastTweetHelper
+
   belongs_to :user
 
   belongs_to :parent_tweet, class_name:"Tweet", foreign_key: 'parent_tweet_id', optional: true,dependent: :destroy
@@ -21,4 +24,24 @@ class Tweet < ApplicationRecord
 
   after_destroy_commit{broadcast_remove_to "public_tweets"}
 
+  after_create_commit :send_retweet_notification,if: :retweet
+  
+
+
+
+  def send_retweet_notification
+    tweet=Tweet.find(self.parent_tweet_id)
+    notification = Notification.create(recipient:tweet.user,actor:Current.user,action:"retweet",notifiable: self)
+    #binding.pry
+    NotificationRelayJob.perform_later(notification)
+    notify(notification)
+
+    broadcastRetweet(self)
+  end
+
+  def retweet
+    if self.tweet_type=="retweet"
+      true
+    end
+  end
 end

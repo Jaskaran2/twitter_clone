@@ -2,8 +2,8 @@ class TweetsController<ApplicationController
 
     before_action :authenticate_user!
     skip_before_action :verify_authenticity_token
-    include NotificationHelper
     include BroadcastTweetHelper
+
 
     def index
         follower_tweets = Tweet.followers_tweets(current_user)
@@ -54,9 +54,6 @@ class TweetsController<ApplicationController
         
         
         @retweet = current_user.tweets.new(parent_tweet_id:@tweet.id,tweet_type: "retweet")
-        #create notification for user
-        notification = Notification.create(recipient:@tweet.user,actor:current_user,action:"retweet",notifiable:@retweet)
-        NotificationRelayJob.perform_later(notification)
         respond_to do |format|
             if @retweet.save
                 format.turbo_stream
@@ -64,12 +61,6 @@ class TweetsController<ApplicationController
                 format.html{redirect_back fallback_location:@tweet,alert:"Something went wrong while retweeting"}
             end
         end
-
-        broadcastRetweet(@retweet)
-        notify(notification)
-        
-        #binding.pry
-        
     end
 
     def likeables     
