@@ -23,15 +23,15 @@ class Tweet < ApplicationRecord
 
   after_destroy_commit{ broadcast_remove_to "public_tweets" } 
 
-  after_create_commit :send_retweet_notification,if: Proc.new{ tweet_type=="retweet" }
+  after_create_commit -> {send_retweet_reply_notification(tweet_type)},if: Proc.new{ tweet_type=="retweet" or tweet_type=="reply" }
 
   after_create_commit :broadcast_tweet_retweet
 
 
 
-  def send_retweet_notification
+  def send_retweet_reply_notification(action)
     tweet=Tweet.find(self.parent_tweet_id)
-    notification = Notification.create(recipient:tweet.user,actor:Current.user,action:"retweet",notifiable: self)
+    notification = Notification.create(recipient:tweet.user, actor:Current.user, action: action, notifiable: self)
     #binding.pry
     NotificationRelayJob.perform_later(notification)
     notify(notification)

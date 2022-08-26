@@ -27,7 +27,11 @@
     
     <% elsif notification.action=="retweet" %>
       <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
-      <p><%= "#{notification.actor.username} retweeted on your post" %></p>
+      <p><%= "#{notification.actor.username} retweeted your post" %></p>
+
+      <% elsif notification.action=="reply" %>
+      <h4>@<%= link_to "#{notification.actor.username}",profile_path(notification.actor),data:{"turbo-frame": "_top"} %></h4>
+      <p><%= "#{notification.actor.username} replied to your post" %></p>
     <% end %>
     </p>
   </article>
