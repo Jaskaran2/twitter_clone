@@ -6,7 +6,9 @@ class TweetsController<ApplicationController
     include BroadcastTweetHelper
 
     def index
-        @tweets = Tweet.followers_tweets
+        follower_tweets = Tweet.followers_tweets(current_user)
+        my_tweets=Tweet.my_tweets(current_user)
+        @tweets=follower_tweets+my_tweets
         @tweet = current_user.tweets.new
     end
 
@@ -34,19 +36,18 @@ class TweetsController<ApplicationController
     def destroy
         @tweet = current_user.tweets.find(params[:id])
         @tweet.destroy
-        redirect_to profile_path, status: 303 #check staus: :no_content    
+        redirect_to profile_path, staus: :no_content    
     end
 
     def like
         @tweet = Tweet.find(params[:id])
-        current_user.like(@tweet)
-    end
-
-    def like_button
-        respond_to do |format|
-            format.turbo_stream
+        if current_user.liked_tweets.include?(@tweet)
+          current_user.unlike(@tweet)     
+        else
+          current_user.like(@tweet)
         end
     end
+
 
     def retweet
         @tweet = Tweet.find(params[:id])

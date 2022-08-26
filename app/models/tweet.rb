@@ -1,9 +1,9 @@
 class Tweet < ApplicationRecord
   belongs_to :user
 
-  belongs_to :parent_tweet, class_name:"Tweet", foreign_key: 'parent_tweet_id', optional: true
+  belongs_to :parent_tweet, class_name:"Tweet", foreign_key: 'parent_tweet_id', optional: true,dependent: :destroy
   
-  has_many :child_tweets, class_name:"Tweet",foreign_key: 'parent_tweet_id'
+  has_many :child_tweets, class_name:"Tweet",foreign_key: 'parent_tweet_id',dependent: :destroy
   
   #has many retweets
 
@@ -13,7 +13,9 @@ class Tweet < ApplicationRecord
 
   has_one_attached :tweet_image
 
-  scope :followers_tweets,->{where(user_id: Current.user.following)}
+  scope :followers_tweets,->(currentUser){where(user_id: currentUser.following).order("created_at DESC")}
+
+  scope :my_tweets,->(currentUser){where(user_id: currentUser).order("created_at DESC")}
 
   scope :get_replies,->(id){where(parent_tweet_id: id).order("created_at DESC")}
 

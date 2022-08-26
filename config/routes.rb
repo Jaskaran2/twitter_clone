@@ -24,9 +24,8 @@ Rails.application.routes.draw do
   end
 
   post 'like/:id',to: "tweets#like",as: "like_tweet"
-  get  'like/:id',to: "tweets#like_button",as: "like_button"
+  # get  'like/:id',to: "tweets#like_button",as: "like_button"
 
- # post '/tweets/:tweet_id/comments/:id',to: "comments#like_comment",as: "like_comment"
 
   # scope module: 'admin' do
   #   resources :articles, :comments
