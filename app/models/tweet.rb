@@ -24,7 +24,7 @@ class Tweet < ApplicationRecord
 
   after_destroy_commit{broadcast_remove_to "public_tweets"}
 
-  after_create_commit :send_retweet_notification,if: :retweet
+  after_create_commit :send_retweet_notification,if: Proc.new{tweet_type=="retweet"}
   
 
 
@@ -39,9 +39,4 @@ class Tweet < ApplicationRecord
     broadcastRetweet(self)
   end
 
-  def retweet
-    if self.tweet_type=="retweet"
-      true
-    end
-  end
 end
