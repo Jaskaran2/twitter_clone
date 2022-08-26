@@ -1,3 +1,3 @@
 class Current < ActiveSupport::CurrentAttributes
-    attribute :user,:notifications
+    attribute :user
   end
