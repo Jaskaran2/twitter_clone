@@ -2,7 +2,6 @@ class TweetsController<ApplicationController
 
     before_action :authenticate_user!
     skip_before_action :verify_authenticity_token
-    include BroadcastTweetHelper
 
 
     def index
@@ -24,13 +23,11 @@ class TweetsController<ApplicationController
         respond_to do |format|
             if @tweet.save
                 format.turbo_stream
-            #   redirect_to root_path,notice: "Post created"
             else
                 flash[:error]="Wrong inputs!! Something is missing"
                 format.html {render :index}
             end
         end
-        broadcastTweet(@tweet)
     end
 
     def destroy
