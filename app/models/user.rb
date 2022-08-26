@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_many :likes,dependent: :destroy
   #user.liked_tweets shows tweets user has liked
-  has_many :liked_tweets,through: :likes,source_type: "Tweet",source: :likeable
+  has_many :liked_tweets,through: :likes,source: :tweet
 
   has_many :active_friendships,class_name:"Friendship",foreign_key:"follower_id",dependent: :destroy
   has_many :following, through: :active_friendships,source: :followed
@@ -43,13 +43,11 @@ class User < ApplicationRecord
       liked_tweets.include?(tweet)
     end
   
-    #use callback for like
     def like(tweet)
       liked_tweets<<tweet
       like_broadcast(tweet)
     end 
       
-   
 
     def unlike(tweet)    
       liked_tweets.destroy(tweet)

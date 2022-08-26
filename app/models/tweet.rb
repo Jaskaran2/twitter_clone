@@ -7,7 +7,7 @@ class Tweet < ApplicationRecord
   
   #has many retweets
 
-  has_many :likes,as: :likeable
+  has_many :likes
 
   validates :body,presence: true,unless: :parent_tweet_id
 
