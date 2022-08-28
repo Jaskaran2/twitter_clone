@@ -1,7 +1,7 @@
 <div class="app">
   <%= render "shared/sidebar",current_user:Current.user %>
   <div class="people_likes_names">
-    <% @tweet.likes.each do |like| %>
+    <% @likes.each do |like| %>
       <div class="wrapper">
         <% if !like.user.profile_image.byte_size.nil? %>
           <%= image_tag like.user.profile_image,class:"notification_image" %>

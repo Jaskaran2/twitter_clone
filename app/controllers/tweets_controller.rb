@@ -61,7 +61,7 @@ class TweetsController<ApplicationController
     end
 
     def likeables     
-        @tweet= Tweet.find(params[:id])
+        @likes= Tweet.find(params[:id]).likes
     end
 
     def reply

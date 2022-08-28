@@ -32,8 +32,10 @@
 </div>
 
 <div class="profile_body">
+<%= turbo_frame_tag "tweets" do %>
   <% @user_tweets.each do |tweet| %>
     <%= render "tweets/#{tweet.tweet_type.parameterize}", tweet:tweet %>
   <% end %>
+  <%end%>
 </div>
 
