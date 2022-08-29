@@ -15,12 +15,12 @@
           <p class="post_headerTimestamp"><%= @tweet.created_at %> </p>
         </div>
         <div class=post_headerDescription>
-         <% if @tweet.parent_tweet_id.nil? %>
+         <% if @tweet.reply_id.nil? and @tweet.retweet_id.nil? %>
             <p> <%= @tweet.body %></p>
-        <% elsif @tweet.parent_tweet_id? and @tweet.body? %>
+        <% elsif @tweet.reply_id? %>
             <p> <%= @tweet.body %></p>
-        <% elsif @tweet.parent_tweet_id? and !@tweet.body? %>
-            <p> <%= @tweet.parent_tweet.body %></p>
+        <% elsif @tweet.retweet_id? %>
+            <p> <%= @tweet.retweet.body %></p>
         <% end %>
         </div>
       </div>

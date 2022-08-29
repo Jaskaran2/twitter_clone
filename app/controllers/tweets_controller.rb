@@ -6,8 +6,8 @@ class TweetsController<ApplicationController
 
     def index
         follower_tweets = Tweet.followers_tweets(current_user)
-        my_tweets=Tweet.my_tweets(current_user)
-        @tweets=follower_tweets+my_tweets
+        my_tweets = Tweet.my_tweets(current_user)
+        @tweets = follower_tweets+my_tweets
         @tweet = current_user.tweets.new
     end
 
@@ -48,14 +48,13 @@ class TweetsController<ApplicationController
 
     def retweet
         @tweet = Tweet.find(params[:id])
-        
-        
-        @retweet = current_user.tweets.new(parent_tweet_id:@tweet.id,tweet_type: "retweet")
+               
+        @retweet = current_user.tweets.new(retweet_id: @tweet.id,tweet_type: "retweet")
         respond_to do |format|
             if @retweet.save
                 format.turbo_stream
             else
-                format.html{redirect_back fallback_location:@tweet,alert:"Something went wrong while retweeting"}
+                format.html{redirect_back fallback_location: @tweet,alert: "Something went wrong while retweeting"}
             end
         end
     end
@@ -66,7 +65,7 @@ class TweetsController<ApplicationController
 
     def reply
         @tweet = Tweet.find(params[:id])
-        @reply = current_user.tweets.create(parent_tweet_id:@tweet.id,body:params[:body],tweet_image: params[:tweet_image],tweet_type: "reply") 
+        @reply = current_user.tweets.create(reply_id: @tweet.id,body:params[:body],tweet_image: params[:tweet_image],tweet_type: "reply") 
         
         respond_to do |format|
           if @reply.save
@@ -83,7 +82,7 @@ class TweetsController<ApplicationController
     
     
     def tweet_params
-      params.require(:tweet).permit(:body,:tweet_image,:parent_tweet_id)
+      params.require(:tweet).permit(:body,:tweet_image,:reply_id,:retweet_id)
     end
     
 end

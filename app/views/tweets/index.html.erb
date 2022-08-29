@@ -5,6 +5,8 @@
     <div class="feed_header">
       <h2>Home</h2>
     </div>
+    <%= turbo_stream_from "public_tweets" %>
+    <%= turbo_stream_from "public_likes" %>
     <%= render "form", tweet: @tweet %>
     <%= turbo_frame_tag "tweets" do %>
       <% @tweets.each do |tweet| %>

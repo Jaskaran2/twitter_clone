@@ -3,24 +3,24 @@
 <%= turbo_frame_tag "tweet_#{tweet.id}" do%>
   <div class="post">
     <div class="post_avatar">
-      <% if !tweet.parent_tweet.user.profile_image.byte_size.nil? %>
-        <%= image_tag tweet.parent_tweet.user.profile_image,class:"post_image" %>
+      <% if !tweet.retweet.user.profile_image.byte_size.nil? %>
+        <%= image_tag tweet.retweet.user.profile_image,class:"post_image" %>
       <% else %>
-        <%= gravatar_image_tag(tweet.parent_tweet.user.email, size:64,alt:"No img",class:"post_image") %>
+        <%= gravatar_image_tag(tweet.retweet.user.email, size:64,alt:"No img",class:"post_image") %>
       <% end %>
     </div>
     <div class="post_body">
       <div class="post_header">
         <div class="post_headerText">
           <h3>Retweeted by <span class="post_headerSpecial"> @<%= link_to tweet.user.name, profile_path(tweet.user.id),data:{"turbo-frame": "_top"} %></span></h3>
-          Tweeted by <span class="post_headerSpecial"> @<%= link_to tweet.parent_tweet.user.username, profile_path(tweet.parent_tweet.user.id),data:{"turbo-frame": "_top"} %></span>
+          Tweeted by <span class="post_headerSpecial"> @<%= link_to tweet.retweet.user.username, profile_path(tweet.retweet.user.id),data:{"turbo-frame": "_top"} %></span>
           <p class= "post_headerTimestamp"><%= tweet.created_at%> </p>
         </div>
         <div class=post_headerDescription>
-          <p> <%= tweet.parent_tweet.body %></p>
+          <p> <%= tweet.retweet.body %></p>
         </div>
-          <% if !tweet.parent_tweet.tweet_image.byte_size.nil? %>
-          <%= image_tag tweet.parent_tweet.tweet_image,style:"border-radius:0" %>
+          <% if !tweet.retweet.tweet_image.byte_size.nil? %>
+          <%= image_tag tweet.retweet.tweet_image,style:"border-radius:0" %>
         <% end %>
       </div>
       <div class="post_footer">
@@ -31,7 +31,7 @@
          <%=link_to "",tweet ,class:"fa-solid fa-comment",data:{"turbo-frame": "_top"} %> 
         </div>
         <div class="retweetedOption">
-          <span><%= button_to "",retweet_tweet_path(tweet.parent_tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"} %></span>
+          <span><%= button_to "",retweet_tweet_path(tweet.retweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"} %></span>
         </div>
         <div class="deleteOption">
           <%= render "tweets/delete_tweet" ,tweet:tweet %>
