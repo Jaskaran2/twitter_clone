@@ -16,7 +16,7 @@ RSpec.describe "Creating articles" do
 
         it "has type retweet" do
             number_of_tweets=Tweet.count
-            post "/tweets/#{tweet.id}/retweet",:params => { :body=> nil, :retweet_id=> tweet.id}, as: :turbo_stream 
+            post "/tweets/#{tweet.id}/retweet",:params => { :body=> nil, :parent_tweet_id=> tweet.id}, as: :turbo_stream 
             expect(Tweet.last.tweet_type).to eq("retweet") 
             expect(Tweet.count).to eq(number_of_tweets+1)
         end
@@ -24,7 +24,7 @@ RSpec.describe "Creating articles" do
 
         it "has type reply" do
             number_of_tweets=Tweet.count
-            post "/tweets/#{tweet.id}/reply",:params => { :body=> "Its a reply", :reply_id=> tweet.id}, as: :turbo_stream 
+            post "/tweets/#{tweet.id}/reply",:params => { :body=> "Its a reply", :parent_tweet_id=> tweet.id}, as: :turbo_stream 
             expect(Tweet.last.tweet_type).to eq("reply") 
             expect(Tweet.count).to eq(number_of_tweets+1)
         end

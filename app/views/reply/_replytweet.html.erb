@@ -4,17 +4,17 @@
 <%= turbo_frame_tag "tweet_#{tweet.id}" do%>
   <div class="post">
     <div class="post_avatar">
-      <% if !tweet.reply.user.profile_image.byte_size.nil? %>
-        <%= image_tag tweet.reply.user.profile_image,class:"post_image" %>
+      <% if !tweet.parent_tweet.user.profile_image.byte_size.nil? %>
+        <%= image_tag tweet.parent_tweet.user.profile_image,class:"post_image" %>
       <% else %>
-        <%= gravatar_image_tag(tweet.reply.user.email, size:64,alt:"No img",class:"post_image") %>
+        <%= gravatar_image_tag(tweet.parent_tweet.user.email, size:64,alt:"No img",class:"post_image") %>
       <% end %>
     </div>
     <div class="post_body">
       <div class="post_header">
         <div class="post_headerText">
           <h3>Replied by <span class="post_headerSpecial"> @<%= link_to tweet.user.name, profile_path(tweet.user.id),data:{"turbo-frame": "_top"} %></span></h3>
-          Tweeted by <span class="post_headerSpecial"> @<%= link_to tweet.reply.user.username, profile_path(tweet.reply.user.id),data:{"turbo-frame": "_top"} %></span>
+          Tweeted by <span class="post_headerSpecial"> @<%= link_to tweet.parent_tweet.user.username, profile_path(tweet.parent_tweet.user.id),data:{"turbo-frame": "_top"} %></span>
           <p class= "post_headerTimestamp"><%= tweet.created_at%> </p>
         </div>
         <div class=post_headerDescription>
@@ -32,7 +32,7 @@
           <%= link_to "",tweet ,class:"fa-solid fa-comment",data:{"turbo-frame": "_top"} %>
         </div>
         <div class="retweetedOption">
-          <span><%= button_to "",retweet_tweet_path(tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"} %></span>
+          <span><%= button_to "",retweet_tweet_path(tweet) ,method: :post,class:"fa-solid fa-retweet",data:{"turbo-frame": "_top"},id:"retweet_#{tweet.id}" %></span>
         </div>
         <div class="deleteOption">
           <%= render "tweets/delete_tweet" ,tweet:tweet %>

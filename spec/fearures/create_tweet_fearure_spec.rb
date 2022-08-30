@@ -3,22 +3,44 @@ require "rails_helper"
 RSpec.feature "Create tweets",type: :feature do
 
     feature "User is signed in" do
+        let(:user){create(:user)}
 
         before do
-            user = User.create(name:"test",username:"test123",email:"test@gmail.com",password:"123456",password_confirmation:"123456")
             visit "/users/sign_in"
-            fill_in 'Email',with: 'test@gmail.com'
-            fill_in 'Password',with: '123456'
+            fill_in 'Email',with: user.email
+            fill_in 'Password',with: user.password
             click_button 'Log in'
             expect(page).to have_content 'Signed in successfully'
         end
 
-        scenario "Tweet gets created" do
+        before do
             visit('/')
             expect(page).to have_content 'Home'
-            # fill_in 'tweet_body',with:"Test tweet length>10"
-            # click_button 'Tweet'
-            # expect(page).to have_content "Test tweet length>10" 
+            fill_in 'tweet_body',with:"Test tweet"       
+            click_button 'Tweet'
         end
+
+        scenario "Tweet gets created" do
+            expect(page).to have_content "Test tweet" 
+        end
+
+        scenario "Retweet gets created" do
+            expect(page).to have_content "Test tweet" 
+            click_button "retweet_#{Tweet.last.id}"
+            expect(page).to have_content "Retweeted by @#{user.name}"
+        
+        end
+
+        scenario "reply gets created" do
+            expect(page).to have_content "Test tweet" 
+
+            find(:css, '.fa-comment').click
+            visit("/tweets/#{Tweet.last.id}")
+            fill_in 'body',with:"Its a reply"       
+            click_button 'Reply'
+            expect(page).to have_content "Replied by @#{user.name}"
+         
+        end
+
     end
 end

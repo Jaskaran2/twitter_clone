@@ -4,15 +4,22 @@ class Tweet < ApplicationRecord
 
   belongs_to :user
 
-  has_many :likes
+  has_many :likes, dependent: :destroy
 
-  belongs_to :reply, class_name: 'Tweet', foreign_key: 'reply_id',optional: true,dependent: :destroy
-  has_many :replies,class_name:"Tweet",foreign_key: 'reply_id',dependent: :destroy
+  belongs_to :parent_tweet, class_name: 'Tweet', foreign_key: 'parent_tweet_id',optional: true,dependent: :destroy
+  has_many :child_tweets, class_name: "Tweet", foreign_key: 'parent_tweet_id', dependent: :destroy
+  has_many :retweets,class_name: 'Tweet',foreign_key: 'tweet_type',primary_key: 'tweet_type'
 
-  belongs_to :retweet, class_name: 'Tweet', foreign_key: 'retweet_id',optional: true,dependent: :destroy
-  has_many :retweets,class_name:"Tweet",foreign_key: 'retweet_id',dependent: :destroy
 
-  validates :body,presence: true,unless: [:retweet_id, :reply]
+
+
+  # belongs_to :reply, class_name: 'Tweet', foreign_key: 'reply_id',optional: true,dependent: :destroy
+  # has_many :replies,class_name:"Tweet",foreign_key: 'reply_id',dependent: :destroy
+
+  # belongs_to :retweet, class_name: 'Tweet', foreign_key: 'retweet_id',optional: true,dependent: :destroy
+  # has_many :retweets,class_name:"Tweet",foreign_key: 'retweet_id',dependent: :destroy
+
+  validates :body,presence: true,unless: :parent_tweet_id
 
   has_one_attached :tweet_image
 
@@ -20,7 +27,7 @@ class Tweet < ApplicationRecord
 
   scope :my_tweets,->(currentUser){ where(user_id: currentUser).order("created_at DESC") }
 
-  scope :get_replies,->(id){ where(reply_id: id).order("created_at DESC") }
+  scope :get_replies,->(id){ where(parent_tweet_id: id).order("created_at DESC") }
 
   after_destroy_commit{ broadcast_remove_to "public_tweets" } 
 
@@ -31,10 +38,8 @@ class Tweet < ApplicationRecord
 
 
   def send_retweet_reply_notification(action)
-    tweet_type_id = "#{action}_id"
-    tweet=Tweet.find(self.tweet_type_id)
+    tweet=Tweet.find(self.parent_tweet_id)
     notification = Notification.create(recipient:tweet.user, actor:Current.user, action: action, notifiable: self)
-    #binding.pry
     NotificationRelayJob.perform_later(notification)
     notify(notification)
   end

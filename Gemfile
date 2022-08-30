@@ -85,7 +85,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "rspec-rails"
-  gem "shoulda-matchers","~>5.0"
   gem "factory_bot_rails"
   gem 'database_cleaner-active_record'
 end
