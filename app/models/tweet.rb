@@ -10,7 +10,7 @@ class Tweet < ApplicationRecord
   has_many :child_tweets, class_name: 'Tweet', foreign_key: 'parent_tweet_id', dependent: :destroy
   
 
-  # has_many :retweets, class_name: 'Tweet',foreign_key: 'tweet_type',primary_key: 'tweet_type'
+  #  has_many :retweets, class_name: 'Tweet',foreign_key: 'tweet_type',primary_key: 'tweet_type'
 
 
   # belongs_to :reply, class_name: 'Tweet', foreign_key: 'reply_id',optional: true,dependent: :destroy
@@ -28,6 +28,8 @@ class Tweet < ApplicationRecord
   scope :my_tweets,->(currentUser){ where(user_id: currentUser).order("created_at DESC") }
 
   scope :get_replies,->(id){ where(parent_tweet_id: id).order("created_at DESC") }
+
+  # scope :retweets, -> { where(:tweet_type => "retweet")}
 
   after_destroy_commit{ broadcast_remove_to "public_tweets" } 
 
