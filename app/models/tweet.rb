@@ -13,9 +13,6 @@ class Tweet < ApplicationRecord
   # has_many :retweets, class_name: 'Tweet',foreign_key: 'tweet_type',primary_key: 'tweet_type'
 
 
-
-
-
   # belongs_to :reply, class_name: 'Tweet', foreign_key: 'reply_id',optional: true,dependent: :destroy
   # has_many :replies,class_name:"Tweet",foreign_key: 'reply_id',dependent: :destroy
 
