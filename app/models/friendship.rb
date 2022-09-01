@@ -12,18 +12,14 @@ class Friendship < ApplicationRecord
 
 
     def send_unfollow_notification
-        recipient_id=self.followed_id
-        notification=Notification.create(recipient: User.find(recipient_id),actor:Current.user,action: "unfollowed",notifiable: User.find(recipient_id))
+        notification=Notification.create(recipient: self.followed,actor: self.follower,action: "unfollowed",notifiable: self.followed)
         NotificationRelayJob.perform_later(notification)
-
         notify(notification)
     end
 
     def send_follow_notification
-        recipient_id=self.followed_id
-        notification=Notification.create(recipient: User.find(recipient_id),actor:Current.user,action: "followed",notifiable: User.find(recipient_id))
+        notification=Notification.create(recipient: self.followed,actor: self.follower,action: "followed",notifiable: self.followed)
         NotificationRelayJob.perform_later(notification)
-
         notify(notification)
     end
     

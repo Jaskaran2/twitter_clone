@@ -6,21 +6,17 @@ class Like < ApplicationRecord
 
   after_create_commit :send_like_notification
 
-  after_destroy_commit :send_unlike_ntification
+  after_destroy_commit :send_unlike_notification
 
   def send_like_notification
-    liked_tweet_id=self.tweet_id
-    notification=Notification.create(recipient: Tweet.find_by(id:liked_tweet_id).user,actor:Current.user,action: "like",notifiable: Tweet.find_by(id:liked_tweet_id))
+    notification=Notification.create(recipient: self.tweet.user,actor: Current.user,action: "like",notifiable: self.tweet)
     NotificationRelayJob.perform_later(notification)
-
     notify(notification)
   end
 
-  def send_unlike_ntification
-    liked_tweet_id=self.tweet_id
-    notification=Notification.create(recipient: Tweet.find_by(id:liked_tweet_id).user,actor:Current.user,action: "unlike",notifiable: Tweet.find_by(id:liked_tweet_id))
+  def send_unlike_notification
+    notification=Notification.create(recipient: self.tweet.user,actor: Current.user,action: "unlike",notifiable: self.tweet)
     NotificationRelayJob.perform_later(notification)
-
     notify(notification)
   end
   

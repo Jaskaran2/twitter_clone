@@ -2,9 +2,9 @@
   <div class="tweetBox">
     <% if !tweet.user.profile_image.byte_size.nil? %>
       <%= image_tag tweet.user.profile_image,class:"tweetbox_profile_image mt-3"%>
-    <%else%>
-      <%=gravatar_image_tag(tweet.user.email, size:64,alt:current_user.name,class:"tweetbox_profile_image mt-3")%>
-    <%end%>
+    <% else %>
+      <%= gravatar_image_tag(tweet.user.email, size:64,alt:current_user.name,class:"tweetbox_profile_image mt-3")%>
+    <% end %>
     <div class="tweetBox_input">
       <%= form.text_area :body, placeholder: "Whats happening?" %><br>
       <% tweet.errors.full_messages_for(:body).each do |message| %>

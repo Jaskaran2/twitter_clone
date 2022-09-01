@@ -7,8 +7,11 @@ class Tweet < ApplicationRecord
   has_many :likes, dependent: :destroy
 
   belongs_to :parent_tweet, class_name: 'Tweet', foreign_key: 'parent_tweet_id',optional: true,dependent: :destroy
-  has_many :child_tweets, class_name: "Tweet", foreign_key: 'parent_tweet_id', dependent: :destroy
-  has_many :retweets,class_name: 'Tweet',foreign_key: 'tweet_type',primary_key: 'tweet_type'
+  has_many :child_tweets, class_name: 'Tweet', foreign_key: 'parent_tweet_id', dependent: :destroy
+  
+
+  # has_many :retweets, class_name: 'Tweet',foreign_key: 'tweet_type',primary_key: 'tweet_type'
+
 
 
 
@@ -31,15 +34,14 @@ class Tweet < ApplicationRecord
 
   after_destroy_commit{ broadcast_remove_to "public_tweets" } 
 
-  after_create_commit -> {send_retweet_reply_notification(tweet_type)},if: Proc.new{ tweet_type == :retweet or tweet_type == :reply }
+  after_create_commit -> {send_retweet_reply_notification(tweet_type)},if: Proc.new{ tweet_type == "retweet" or tweet_type == "reply" }
 
   after_create_commit :broadcast_tweet_retweet
 
 
 
   def send_retweet_reply_notification(action)
-    tweet=Tweet.find(self.parent_tweet_id)
-    notification = Notification.create(recipient:tweet.user, actor:Current.user, action: action, notifiable: self)
+    notification = Notification.create(recipient:  self.parent_tweet.user, actor: Current.user, action: action, notifiable: self)
     NotificationRelayJob.perform_later(notification)
     notify(notification)
   end
