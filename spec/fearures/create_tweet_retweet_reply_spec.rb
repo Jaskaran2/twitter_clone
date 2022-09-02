@@ -6,11 +6,7 @@ RSpec.feature "Create tweets", driver: :selenium_chrome, js: true,type: :feature
         let(:user){create(:user)}
 
         before do
-            visit "/users/sign_in"
-            fill_in 'Email',with: user.email
-            fill_in 'Password',with: user.password
-            click_button 'Log in'
-            expect(page).to have_content 'Signed in successfully'
+            sign_in(user)
         end
 
         before do

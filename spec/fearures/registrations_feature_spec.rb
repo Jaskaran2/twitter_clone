@@ -21,7 +21,6 @@ RSpec.feature "Create user",type: :feature do
     feature "Unsuccessful user creation" do
 
        let(:present_user){create(:user)}
-       #before{User.create(name:"test1",username:"teste12345",email:"Test432@gmail.com",password:"123456",password_confirmation:"123456")}
         
         scenario "User does not get created due to invalid mail" do
             visit('/users/sign_up')

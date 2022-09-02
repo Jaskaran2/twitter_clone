@@ -14,11 +14,11 @@ class Friendship < ApplicationRecord
     def delete_follow_notification
         Notification.where(action:"followed")
         .where(notifiable_id: self.followed.id)
-        .where(actor: Current.user).delete_all
+        .where(actor: self.follower).delete_all
     end
 
     def send_follow_notification
-        notification=Notification.create(recipient: self.followed,actor: self.follower,action: "followed",notifiable: self.followed)
+        notification=Notification.create(recipient: self.followed, actor: self.follower, action: "followed",notifiable: self.followed)
         NotificationRelayJob.perform_later(notification)
         notify(notification)
     end
