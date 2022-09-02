@@ -8,39 +8,34 @@ class Tweet < ApplicationRecord
 
   belongs_to :parent_tweet, class_name: 'Tweet', foreign_key: 'parent_tweet_id',optional: true,dependent: :destroy
   has_many :child_tweets, class_name: 'Tweet', foreign_key: 'parent_tweet_id', dependent: :destroy
-  
 
-  #  has_many :retweets, class_name: 'Tweet',foreign_key: 'tweet_type',primary_key: 'tweet_type'
+  has_many :retweets, -> { where(tweet_type: "retweet") } ,class_name:'Tweet',foreign_key: 'parent_tweet_id'
+  has_many :replies, -> { where(tweet_type: "reply") } ,class_name:'Tweet',foreign_key: 'parent_tweet_id'
 
-
-  # belongs_to :reply, class_name: 'Tweet', foreign_key: 'reply_id',optional: true,dependent: :destroy
-  # has_many :replies,class_name:"Tweet",foreign_key: 'reply_id',dependent: :destroy
-
-  # belongs_to :retweet, class_name: 'Tweet', foreign_key: 'retweet_id',optional: true,dependent: :destroy
-  # has_many :retweets,class_name:"Tweet",foreign_key: 'retweet_id',dependent: :destroy
+  # Select tweets.* from tweets where tweets.tweet_type="reply" and tweets.parent_tweet_id= 75
 
   validates :body,presence: true,unless: :parent_tweet_id
 
   has_one_attached :tweet_image
 
-  scope :followers_tweets,->(currentUser){ where(user_id: currentUser.following).order("created_at DESC") }
+  scope :followers_tweets,->(currentUser){ where(user_id: currentUser.following.ids << currentUser.id) }
 
-  scope :my_tweets,->(currentUser){ where(user_id: currentUser).order("created_at DESC") }
+  # scope :my_tweets,->(currentUser){ where(user_id: currentUser)}
 
-  scope :get_replies,->(id){ where(parent_tweet_id: id).order("created_at DESC") }
+  scope :get_replies,->(id){ where(parent_tweet_id: id) }
 
-  # scope :retweets, -> { where(:tweet_type => "retweet")}
+  scope :recent,->{ order("created_at DESC") }
 
   after_destroy_commit{ broadcast_remove_to "public_tweets" } 
 
-  after_create_commit -> {send_retweet_reply_notification(tweet_type)},if: Proc.new{ tweet_type == "retweet" or tweet_type == "reply" }
+  after_create_commit :send_retweet_reply_notification,if: Proc.new{ tweet_type == "retweet" or tweet_type == "reply" }
 
   after_create_commit :broadcast_tweet_retweet
 
 
 
-  def send_retweet_reply_notification(action)
-    notification = Notification.create(recipient:  self.parent_tweet.user, actor: Current.user, action: action, notifiable: self)
+  def send_retweet_reply_notification
+    notification = Notification.create(recipient:  self.parent_tweet.user, actor: Current.user, action: self.tweet_type, notifiable: self)
     NotificationRelayJob.perform_later(notification)
     notify(notification)
   end

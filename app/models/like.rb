@@ -6,7 +6,7 @@ class Like < ApplicationRecord
 
   after_create_commit :send_like_notification
 
-  after_destroy_commit :send_unlike_notification
+  after_destroy_commit :delete_like_notification
 
   def send_like_notification
     notification=Notification.create(recipient: self.tweet.user,actor: Current.user,action: "like",notifiable: self.tweet)
@@ -14,10 +14,10 @@ class Like < ApplicationRecord
     notify(notification)
   end
 
-  def send_unlike_notification
-    notification=Notification.create(recipient: self.tweet.user,actor: Current.user,action: "unlike",notifiable: self.tweet)
-    NotificationRelayJob.perform_later(notification)
-    notify(notification)
+  def delete_like_notification
+    Notification.where(action:"like")
+                .where(notifiable_id: self.tweet.id)
+                .where(actor: Current.user).delete_all
   end
   
 end

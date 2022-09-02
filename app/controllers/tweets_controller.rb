@@ -5,9 +5,7 @@ class TweetsController<ApplicationController
 
 
     def index
-        follower_tweets = Tweet.followers_tweets(current_user)
-        my_tweets = Tweet.my_tweets(current_user)
-        @tweets = follower_tweets+my_tweets
+        @tweets = Tweet.followers_tweets(current_user).recent
         @tweet = current_user.tweets.new
     end
 
@@ -49,7 +47,8 @@ class TweetsController<ApplicationController
     def retweet
         @tweet = Tweet.find(params[:id])
                 
-        @retweet = current_user.tweets.new(parent_tweet_id:@tweet.id,tweet_type: "retweet")
+        @retweet = current_user.tweets.create(parent_tweet_id:@tweet.id,tweet_type: "retweet")
+        # @tweet.set_retweet_id(@retweet.id)
         respond_to do |format|
             if @retweet.save
                 format.turbo_stream
@@ -67,7 +66,7 @@ class TweetsController<ApplicationController
     def reply
         @tweet = Tweet.find(params[:id])
         @reply = current_user.tweets.create(parent_tweet_id:@tweet.id,body:params[:body],tweet_image: params[:tweet_image],tweet_type: "reply") 
-        
+        # @tweet.set_retweet_id(@reply.id)
         respond_to do |format|
           if @reply.save
               format.turbo_stream
