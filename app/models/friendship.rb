@@ -13,8 +13,8 @@ class Friendship < ApplicationRecord
 
     def delete_follow_notification
         Notification.where(action:"followed")
-        .where(notifiable_id: self.followed.id)
-        .where(actor: self.follower).delete_all
+                    .where(notifiable_id: self.followed.id)
+                    .where(actor: self.follower).delete_all
     end
 
     def send_follow_notification

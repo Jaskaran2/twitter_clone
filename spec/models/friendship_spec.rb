@@ -18,23 +18,13 @@ RSpec.describe Friendship,type: :model do
     let(:user1){create(:user)}
     let(:user2){create(:user)}
 
-    # before do
-    #     initial_friendship_count = Friendship.count
-    #     user1.follow(user2)
-    # end
-
-
     it "send_follow_notification" do
-        initial_friendship_count = Friendship.count
-        user1.follow(user2)
-        expect(Friendship.count).to eq( initial_friendship_count+1 )
+        expect{ user1.follow(user2) }.to change{ Friendship.count }.by(1)
     end
 
     it "delete_follow_notification" do
-        initial_friendship_count = Friendship.count
         user1.follow(user2)
-        user1.unfollow(user2)
-        expect(Friendship.count).to eq( initial_friendship_count )
+        expect{ user1.unfollow(user2) }.to change{ Friendship.count }.by(-1)
     end
 
   end

@@ -17,6 +17,7 @@ class TweetsController<ApplicationController
     
     def create
         @tweet = current_user.tweets.new(tweet_params)
+       
         respond_to do |format|
             if @tweet.save
                 format.turbo_stream
@@ -45,9 +46,9 @@ class TweetsController<ApplicationController
 
 
     def retweet
-        @tweet = Tweet.find(params[:id])
-                
+        @tweet = Tweet.find(params[:id])          
         @retweet = current_user.tweets.create(parent_tweet_id:@tweet.id,tweet_type: "retweet")
+      
         respond_to do |format|
             if @retweet.save
                 format.turbo_stream
@@ -65,6 +66,9 @@ class TweetsController<ApplicationController
     def reply
         @tweet = Tweet.find(params[:id])
         @reply = current_user.tweets.create(parent_tweet_id:@tweet.id,body:params[:body],tweet_image: params[:tweet_image],tweet_type: "reply") 
+        
+      
+        
         respond_to do |format|
           if @reply.save
               format.turbo_stream
