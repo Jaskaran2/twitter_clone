@@ -35,7 +35,7 @@ class Tweet < ApplicationRecord
 
 
   def send_retweet_reply_notification
-    notification = Notification.create(recipient:  self.parent_tweet.user, actor: Current.user, action: self.tweet_type, notifiable: self)
+    notification = Notification.create(recipient:  self.parent_tweet.user, actor: self.user, action: self.tweet_type, notifiable: self)
     NotificationRelayJob.perform_later(notification)
     notify(notification)
   end

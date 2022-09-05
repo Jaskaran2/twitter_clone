@@ -9,7 +9,7 @@ class Like < ApplicationRecord
   after_destroy_commit :delete_like_notification
 
   def send_like_notification
-    notification=Notification.create(recipient: self.tweet.user,actor: Current.user,action: "like",notifiable: self.tweet)
+    notification=Notification.create(recipient: self.tweet.user,actor: self.user,action: "like",notifiable: self.tweet)
     NotificationRelayJob.perform_later(notification)
     notify(notification)
   end
