@@ -8,19 +8,19 @@ RSpec.describe "Notifications" do
     context "create notifications" do
       
         it "creates retweet notification" do
-            tweet = create(:tweet)         
+            tweet = create(:tweet,user: User.last)         
             expect{post "/tweets/#{tweet.id}/retweet",:params => { :body=> nil, :parent_tweet_id=> tweet.id}, as: :turbo_stream }.to change{Notification.count}.by(1)
             expect(Notification.last.action).to eq("retweet")  
         end
 
         it "creates reply notification" do
-            tweet = create(:tweet)
+            tweet = create(:tweet,user: User.last)
             expect{ post "/tweets/#{tweet.id}/reply",:params => { :body=> "Its a reply", :parent_tweet_id=> tweet.id}, as: :turbo_stream }.to change{Notification.count}.by(1)
             expect(Notification.last.action).to eq("reply")  
         end
 
         it "create like notification" do
-            tweet = create(:tweet)
+            tweet = create(:tweet,user: User.last)
             expect{ post "/like/#{tweet.id}" }.to change{Notification.count}.by(1) 
             expect(Notification.last.action).to eq("like")  
         end
@@ -35,7 +35,7 @@ RSpec.describe "Notifications" do
 
     context "delete notification" do
         it "deletes like notification on unlike" do
-            tweet = create(:tweet)
+            tweet = create(:tweet,user: User.last)
             post "/like/#{tweet.id}"
             expect{ post "/like/#{tweet.id}" }.to change{Notification.count}.by(-1)  
         end

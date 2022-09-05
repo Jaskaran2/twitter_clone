@@ -77,7 +77,24 @@ RSpec.describe User,type: :model do
         expect(user.errors[:password].size).to eq(1)
     end
 
-end
+  end
+
+  # describe "check methods in user model" do
+
+  #   it "checks like" do
+  #     actor = create(:user)
+  #     recipient = create(:user)
+  #     tweet = create(:tweet,user: recipient)
+
+  #     notification = create(:notification,recipient: recipient, actor: actor, action: "like",notifiable: :for_tweet )
+  #     binding.pry
+
+  #     user.like(tweet)
+  #     expect{ user.like(tweet)}.to change{Like.count}.by(1)
+  #   end
+    
+  # end
+  
    
    
 end
