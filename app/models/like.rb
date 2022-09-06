@@ -17,7 +17,7 @@ class Like < ApplicationRecord
   def delete_like_notification
     Notification.where(action:"like")
                 .where(notifiable_id: self.tweet.id)
-                .where(actor: Current.user).delete_all
+                .where(actor: self.user).delete_all
   end
   
 end

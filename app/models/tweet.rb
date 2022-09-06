@@ -6,8 +6,8 @@ class Tweet < ApplicationRecord
 
   has_many :likes, dependent: :destroy
 
-  belongs_to :parent_tweet, class_name: 'Tweet', foreign_key: 'parent_tweet_id',optional: true,dependent: :destroy
-  has_many :child_tweets, class_name: 'Tweet', foreign_key: 'parent_tweet_id', dependent: :destroy
+  belongs_to :parent_tweet, class_name: 'Tweet', foreign_key: 'parent_tweet_id',optional: true
+  has_many :child_tweets, class_name: 'Tweet', foreign_key: 'parent_tweet_id',dependent: :destroy
 
   has_many :retweets, -> { where(tweet_type: "retweet") } ,class_name:'Tweet',foreign_key: 'parent_tweet_id'
   has_many :replies, -> { where(tweet_type: "reply") } ,class_name:'Tweet',foreign_key: 'parent_tweet_id'
