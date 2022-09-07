@@ -1,5 +1,5 @@
 <div class="profile">
-  <%= render "shared/sidebar",current_user:Current.user %>
+  <%= render "shared/sidebar",current_user:current_user %>
   <div class="profile_body">
     <div class="profile_header">
       
@@ -14,8 +14,8 @@
       <div class="post_headerText">
         <h3 class="follow_unfollow_button">
           <%= @profile.name  %>
-          <% if !(@profile.id==Current.user.id) %>
-            <% if Current.user.following?(@profile) %>
+          <% if !(@profile.id==current_user.id) %>
+            <% if current_user.following?(@profile) %>
               <%= render "unfollow",profile:@profile %>
           <%elsif%>
             <%= render "follow",profile:@profile %>
@@ -24,7 +24,7 @@
         <%= link_to "" , edit_user_registration_path,class:"fa-solid fa-gear ms-4" %>
       <% end %>
     </h3>
-    <% if (@profile.id==Current.user.id) %>
+    <% if (@profile.id==current_user.id) %>
      <%= render "profiles/follow_unfollow_count", profile:@profile %>
     <% end %>
 

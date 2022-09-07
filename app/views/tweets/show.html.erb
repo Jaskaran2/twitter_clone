@@ -1,11 +1,11 @@
 <div class="tweet_comments" style="display:flex">
-  <%= render "shared/sidebar",current_user:Current.user %>
+  <%= render "shared/sidebar",current_user:current_user %>
   <div class="post single_post">
      <div class="post_avatar">
       <% if !@tweet.user.profile_image.byte_size.nil? %>
         <%= image_tag @tweet.user.profile_image,class:"post_image" %>
       <% else %>
-        <%= gravatar_image_tag(@tweet.user.email, size:64,alt:Current.user.name,class:"post_image") %>
+        <%= gravatar_image_tag(@tweet.user.email, size:64,alt:current_user.name,class:"post_image") %>
       <% end %>
     </div>
     <div class="post_body">

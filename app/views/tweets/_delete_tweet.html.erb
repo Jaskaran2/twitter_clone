@@ -3,5 +3,5 @@
   <%= link_to "", tweet_path(tweet), data: {
     turbo_method: :delete,
     turbo_confirm: "Are you sure?"   
-    },class:"fa-solid fa-trash" %>
+    },class:"fa-solid fa-trash",id:"delete_#{tweet.id}" %>
 <% end %>

@@ -47,7 +47,7 @@ RSpec.describe User,type: :model do
    
 
   describe 'validate email' do
-    let!(:user_present){create(:user)}
+    let(:user_present){create(:user)}
 
     it 'validates presence' do
         user=User.new
@@ -73,7 +73,7 @@ RSpec.describe User,type: :model do
 
   end
 
-  describe "validates passsword length" do
+  describe "validates passsword" do
     it "validates password length" do 
         user=User.new
         user.password="123"

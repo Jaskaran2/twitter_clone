@@ -9,8 +9,8 @@ class Tweet < ApplicationRecord
   belongs_to :parent_tweet, class_name: 'Tweet', foreign_key: 'parent_tweet_id',optional: true
   has_many :child_tweets, class_name: 'Tweet', foreign_key: 'parent_tweet_id',dependent: :destroy
 
-  has_many :retweets, -> { where(tweet_type: "retweet") } ,class_name:'Tweet',foreign_key: 'parent_tweet_id'
-  has_many :replies, -> { where(tweet_type: "reply") } ,class_name:'Tweet',foreign_key: 'parent_tweet_id'
+  has_many :retweets, -> { where(tweet_type: "retweet") } ,class_name:'Tweet',foreign_key: 'parent_tweet_id',dependent: :destroy
+  has_many :replies, -> { where(tweet_type: "reply") } ,class_name:'Tweet',foreign_key: 'parent_tweet_id',dependent: :destroy
 
   # Select tweets.* from tweets where tweets.tweet_type="reply" and tweets.parent_tweet_id= 75
 
@@ -43,7 +43,7 @@ class Tweet < ApplicationRecord
   def broadcast_tweet_retweet
     if self.tweet_type == "tweet"
       broadcastTweet(self)
-    elsif self.tweet_type == "reply"
+    elsif self.tweet_type == "retweet"
       broadcastRetweet(self)
     end
   end

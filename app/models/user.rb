@@ -39,10 +39,6 @@ class User < ApplicationRecord
 
 
     #like unlike tweets
-    def liked?(tweet)
-      liked_tweets.include?(tweet)
-    end
-  
     def like(tweet)
       liked_tweets<<tweet
       like_broadcast(tweet)
@@ -52,6 +48,10 @@ class User < ApplicationRecord
     def unlike(tweet)    
       liked_tweets.destroy(tweet)
       like_broadcast(tweet)
+    end
+
+    def liked?(tweet)
+      liked_tweets.include?(tweet)
     end
 
 end

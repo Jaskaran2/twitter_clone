@@ -1,5 +1,5 @@
 <div class="profile_page">
-  <%= render "shared/sidebar",current_user:Current.user %>
+  <%= render "shared/sidebar",current_user:current_user %>
   <div id="followers">
     <h2>Followers</h2>
     <% @profile.followers.each do |f| %>
