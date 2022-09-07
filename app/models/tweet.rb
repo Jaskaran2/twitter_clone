@@ -18,6 +18,9 @@ class Tweet < ApplicationRecord
 
   has_one_attached :tweet_image
 
+  has_many :impresseions,dependent: :destroy
+  has_many :visiting_users, through: :impresseions,source: :user
+
   scope :followers_tweets,->(currentUser){ where(user_id: currentUser.following.ids << currentUser.id) }
 
   # scope :my_tweets,->(currentUser){ where(user_id: currentUser)}

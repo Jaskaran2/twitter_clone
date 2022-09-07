@@ -11,7 +11,9 @@ class TweetsController<ApplicationController
 
     def show
        @tweet = Tweet.find(params[:id])
+       Impresseion.find_or_create_by(tweet_id: @tweet.id, user_id: current_user.id) if current_user.id!=@tweet.user.id 
        @replies = Tweet.get_replies(params[:id])
+       @count_visited_users = Tweet.find(params[:id]).visiting_users.count
     end
 
     
@@ -66,9 +68,7 @@ class TweetsController<ApplicationController
     def reply
         @tweet = Tweet.find(params[:id])
         @reply = current_user.tweets.create(parent_tweet_id:@tweet.id,body:params[:body],tweet_image: params[:tweet_image],tweet_type: "reply") 
-        
-      
-        
+
         respond_to do |format|
           if @reply.save
               format.turbo_stream
@@ -80,6 +80,10 @@ class TweetsController<ApplicationController
         end
     end
       
+    
+    def impresseions
+        @visited = Tweet.find(params[:id]).visiting_users
+    end
     
     private
     

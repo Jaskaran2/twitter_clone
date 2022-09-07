@@ -26,10 +26,10 @@ RSpec.describe "Creating articles" do
 
     context "delete tweet" do
         
-        it "tweet gets deleted" do
-            post '/tweets', params: { tweet: { body: "Test"} }, as: :turbo_stream 
-            expect{delete "/tweets/#{Tweet.last.id}", as: :turbo_stream}.to change{Tweet.count}.by(-1)
-        end
+        # it "tweet gets deleted" do
+        #     post '/tweets', params: { tweet: { body: "Test"} }, as: :turbo_stream 
+        #     expect{delete "/tweets/#{Tweet.last.id}", as: :turbo_stream}.to change{Tweet.count}.by(-1)
+        # end
 
         it "retweet gets deleted" do    
             post "/tweets/#{tweet.id}/retweet",params: { body: nil, parent_tweet_id: tweet.id}, as: :turbo_stream

@@ -1,0 +1,18 @@
+<div class="app">
+  <%= render "shared/sidebar",current_user:current_user %>
+  <div class="people_likes_names">
+    <% @visited.each do |visitor| %>
+      <div class="wrapper">
+        <% if !visitor.profile_image.byte_size.nil? %>
+          <%= image_tag visitor.profile_image,class:"notification_image" %>
+        <%else%>
+          <%= gravatar_image_tag(visitor.email, size:64,alt:visitor.name,class:"notification_image") %>
+        <% end %>
+        <article>
+          <h4>@<%= link_to "#{visitor.username}",profile_path(visitor) %></h4>
+          <p><%= "#{visitor.username} liked your post" %></p>
+        </article>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -38,4 +38,11 @@
       </div>
       <% end %>
     </div>
+    <% if current_user.id == @tweet.user.id %>
+      <p><%= link_to " #{pluralize(@count_visited_users,"user")} have seen your post", impresseions_tweet_path(@tweet) %></p>
+    <% else %>
+      <%= "#{pluralize(@count_visited_users,"user")} have seen this post" %>
+    <% end %>
   </div>
+
+  <%# pluralize(tweet.likes.count,"Like") %>

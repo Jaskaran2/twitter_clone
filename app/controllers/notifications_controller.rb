@@ -9,7 +9,7 @@ class NotificationsController<ApplicationController
         @notifications = Notification.where(recipient: current_user)
         @notifications.update_all(read_at: Time.zone.now)
         render json: {:success=> true}
-        Notification.where.not(read_at: nil).delete_all
+        Notification.delete_read_notification
     end
 
 end

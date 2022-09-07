@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post :retweet
       get :likeables
       post :reply
+      get :impresseions
     end
   end
 

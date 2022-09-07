@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.feature "Login user",type: :feature do
-    #before{User.create(name:"test",username:"test123",email:"test@gmail.com",password:"123456",password_confirmation:"123456")}
     let(:present_user){create(:user)}
     
     feature "successful login" do
