@@ -18,9 +18,6 @@ class User < ApplicationRecord
   has_many :notifications,foreign_key: :recipient_id
 
 
-  has_many :impresseions,dependent: :destroy
-  has_many :visited_tweets, through: :impresseions,source: :tweet
-
   has_one_attached :profile_image
 
   devise :database_authenticatable, :registerable,

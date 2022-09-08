@@ -26,9 +26,6 @@ RSpec.feature "delete tweets",type: :feature do
     end
 
     scenario "delete reply" do
-        
-        binding.pry
-        
         expect(page).to have_content "Test tweet"  
         find(:css, '.fa-comment').click        
         visit("/tweets/#{Tweet.last.id}")

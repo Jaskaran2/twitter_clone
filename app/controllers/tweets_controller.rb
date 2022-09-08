@@ -34,7 +34,7 @@ class TweetsController<ApplicationController
     def destroy
         @tweet = current_user.tweets.find(params[:id])
         @tweet.destroy
-        redirect_to profile_path, staus: :no_content    
+        redirect_to root_path, staus: :no_content    
     end
 
     def like
