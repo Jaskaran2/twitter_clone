@@ -36,6 +36,9 @@ class Tweet < ApplicationRecord
   after_create_commit :broadcast_tweet_retweet
 
 
+  def set_visitor(user)   
+    Impresseion.find_or_create_by(tweet_id: self.id,user_id: user.id)
+  end
 
   def send_retweet_reply_notification
     notification = Notification.create(recipient:  self.parent_tweet.user, actor: self.user, action: self.tweet_type, notifiable: self)

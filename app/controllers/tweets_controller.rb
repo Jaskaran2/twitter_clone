@@ -11,7 +11,7 @@ class TweetsController<ApplicationController
 
     def show
        @tweet = Tweet.find(params[:id])
-       Impresseion.find_or_create_by(tweet_id: @tweet.id, user_id: current_user.id) if current_user.id!=@tweet.user.id 
+       @tweet.set_visitor(current_user) if current_user.id!=@tweet.user.id 
        @replies = Tweet.get_replies(params[:id])
        @count_visited_users = Tweet.find(params[:id]).visiting_users.count
     end
@@ -49,7 +49,7 @@ class TweetsController<ApplicationController
 
     def retweet
         @tweet = Tweet.find(params[:id])          
-        @retweet = current_user.tweets.create(parent_tweet_id:@tweet.id,tweet_type: "retweet")
+        @retweet = current_user.tweets.create(parent_tweet_id: @tweet.id,tweet_type: "retweet")
       
         respond_to do |format|
             if @retweet.save

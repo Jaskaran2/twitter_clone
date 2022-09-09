@@ -31,14 +31,13 @@ RSpec.feature "Impressions",type: :feature do
         let(:user2){create(:user)}
         
         before do
+            #first user logs in creates tweet and logs out
             visit('/')
             expect(page).to have_content 'Home'
             fill_in 'tweet_body',with:"Test tweet"       
             click_button 'Tweet'
             find(:css, '.logout_button').click
-        end
-
-        before do
+            #second user follows first user and logs in
             user2.follow(user1)
             sign_in(user2)
         end
@@ -57,7 +56,7 @@ RSpec.feature "Impressions",type: :feature do
             expect(page).to have_content "1 user have seen this post" 
             visit("/")
             find(:css, '.fa-comment').click   
-            visit("/tweets/#{Tweet.last.id}")
+            expect{visit("/tweets/#{Tweet.last.id}")}.to change{Impresseion.count}.by(0)
             expect(page).to have_content "1 user have seen this post"
         end
     end
