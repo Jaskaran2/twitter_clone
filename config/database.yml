@@ -25,6 +25,7 @@ development:
   <<: *default
   database: twitter_clone_development
   host: localhost
+  port: 5432
   username: postgres
   password: 
 

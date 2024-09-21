@@ -5,7 +5,12 @@ class TweetsController<ApplicationController
 
 
     def index
-        @tweets = Tweet.followers_tweets(current_user).recent
+        if params[:q].present?
+            @tweets = Tweet.search(params[:q])
+        else
+            @tweets = Tweet.followers_tweets(current_user).recent
+        end
+
         @tweet = current_user.tweets.new
     end
 
