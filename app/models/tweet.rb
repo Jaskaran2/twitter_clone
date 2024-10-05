@@ -55,4 +55,8 @@ class Tweet < ApplicationRecord
       broadcastRetweet(self)
     end
   end
+
+  def summarize_tweet(text, max=nil, min=nil)
+    SummarizeTweetJob.perform_later(text, max, min, id)
+  end
 end
