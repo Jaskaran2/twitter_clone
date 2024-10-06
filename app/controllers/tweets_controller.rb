@@ -21,10 +21,9 @@ class TweetsController<ApplicationController
        @count_visited_users = Tweet.find(params[:id]).visiting_users.count
     end
 
-    
     def create
         @tweet = current_user.tweets.new(tweet_params)
-       
+
         respond_to do |format|
             if @tweet.save
                 format.turbo_stream
@@ -66,7 +65,7 @@ class TweetsController<ApplicationController
         end
     end
 
-    def likeables     
+    def likeables
         @likes= Tweet.find(params[:id]).likes
     end
 
@@ -84,17 +83,14 @@ class TweetsController<ApplicationController
           end
         end
     end
-      
-    
+
+
     def impresseions
         @visited = Tweet.find(params[:id]).visiting_users
     end
-    
     private
-    
-    
+
     def tweet_params
       params.require(:tweet).permit(:body,:tweet_image,:parent_tweet_id)
     end
-    
 end
