@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_21_064721) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_06_105333) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "vector"
@@ -41,6 +41,15 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_21_064721) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.json "history"
+    t.string "q_and_a", default: [], array: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
   create_table "chunks", force: :cascade do |t|
@@ -119,6 +128,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_21_064721) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "chats", "users"
   add_foreign_key "impresseions", "tweets"
   add_foreign_key "impresseions", "users"
   add_foreign_key "likes", "tweets"

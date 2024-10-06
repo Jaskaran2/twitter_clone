@@ -13,16 +13,14 @@ module Chunkable
       end
 
       def hugging_face_ai
-        Langchain::LLM::HuggingFace.new(api_key: ENV['HUGGING_FACE_AI_API_KEY'])
+        Langchain::LLM::HuggingFace.new(api_key: ENV['HUGGING_FACE_AI_TOKEN'])
       end
     end
   
     def chunk!
-      chunks.destroy_all
-  
       Langchain::Chunker::RecursiveText.new(
         body,
-        chunk_size: 1536,
+        chunk_size: 384,
         chunk_overlap: 200,
         separators: ["\n# ", "\n## ", "\n### "]
       ).chunks.each do |chunk|
@@ -33,7 +31,7 @@ module Chunkable
     end
   
     def hugging_face_ai
-      Langchain::LLM::HuggingFace.new(api_key: ENV['HUGGING_FACE_AI_API_KEY'])
+      Langchain::LLM::HuggingFace.new(api_key: ENV['HUGGING_FACE_AI_TOKEN'])
     end
   end
 end
